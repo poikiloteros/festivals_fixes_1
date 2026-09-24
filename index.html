@@ -9,158 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400;1,6..96,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Manrope:wght@300;400;500;600&family=GFS+Didot&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 
-                        heading: ['Cormorant Garamond', 'serif'], 
-                        subheading: ['Bodoni Moda', 'serif'], 
-                        body: ['Manrope', 'sans-serif'], 
-                        greek: ['"GFS Didot"', 'serif'] 
-                    },
-                    colors: { 
-                        ancient: { 50: '#F9F7F2', 100: '#EFEBE0', 200: '#DED6C4', 300: '#C7B69F', 400: '#A68F73', 500: '#8C7355', 600: '#6B543E', 800: '#3E3025', 900: '#261D16' }, 
-                        highlight: '#D9534F' 
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="./assets/css/site.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #A68F73; border-radius: 3px; }
-        
-        /* Reveal Animations */
-        .reveal-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal-up.active { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-
-        /* Staggered Hero Reveal */
-        .hero-title, .hero-subtitle { opacity: 0; transform: translateY(20px); }
-        .hero-title { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards; }
-        .hero-subtitle { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards; }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-        /* SVG Self-Drawing Animation */
-        .draw-line { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        @keyframes draw { to { stroke-dashoffset: 0; } }
-
-        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(166, 143, 115, 0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .leaflet-popup-content-wrapper { border-radius: 2px; font-family: 'Manrope', sans-serif; padding: 0; background: rgba(255, 255, 255, 0.98); border: 1px solid #C7B69F; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .leaflet-popup-content { margin: 10px; }
-        
-        @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(217, 83, 79, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0); } }
-        .marker-highlight { animation: pulse-red 2s infinite; border-color: #D9534F !important; background-color: #fff !important; z-index: 1000 !important; }
-
-        .admin-edit-btn { opacity: 0; pointer-events: none; transition: all 0.2s ease-in-out; position: absolute; top: 1rem; right: 1rem; z-index: 20; }
-        .group:hover .admin-edit-btn.is-admin { opacity: 1; pointer-events: auto; }
-        .auth-overlay { backdrop-filter: blur(4px); background: rgba(38, 29, 22, 0.4); }
-
-        .modal-transition { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        /* Custom scrollbar for the expanded table */
-        .table-wrapper::-webkit-scrollbar { height: 8px; }
-        .table-wrapper::-webkit-scrollbar-track { background: #F9F7F2; }
-        .table-wrapper::-webkit-scrollbar-thumb { background: #C7B69F; border-radius: 4px; }
-
-        /* Typography Resets: Reverting to Original Delicate Weights */
-        h1, h2, h3, h4, h5, h6, .font-heading {
-            font-weight: 400;
-        }
-        
-        .font-subheading {
-            font-weight: 400;
-            letter-spacing: -0.01em;
-        }
-        
-        .font-greek {
-            font-weight: 400;
-            letter-spacing: 0.02em;
-        }
-        
+    <link rel="stylesheet" href="./assets/vendor/leaflet/leaflet.css" crossorigin=""/>
+    <link rel="stylesheet" href="./assets/vendor/fontawesome/css/all.min.css">
 
 
-        /* Unified database entry shell, session notice, and reader navigation drawers */
-        #databaseDisclaimer {
-            background: rgba(249, 247, 242, 0.97);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(199, 182, 159, 0.55);
-            box-shadow: 0 2px 10px rgba(38, 29, 22, 0.04);
-        }
-        #database-view.database-disclaimer-open #viewGrid { padding-top: 10.5rem !important; }
-        #database-view.database-disclaimer-open #dbEntryStage { top: 10rem; }
-
-        #dbEntryStage { top: 6rem; bottom: 1rem; left: 1rem; right: 1rem; }
-        #dbEntryPanels { max-width: 94rem; margin: 0 auto; }
-        #dbEntryPanels.split-layout { max-width: none; margin-left: 8rem; margin-right: 1rem; }
-        .db-entry-card {
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid #DED6C4;
-            box-shadow: 0 18px 45px rgba(38, 29, 22, 0.16);
-            border-radius: 0.25rem;
-            min-width: 0;
-        }
-        .db-entry-card.single-card { width: min(64rem, 100%); }
-        .db-entry-card.split-card { flex: 1 1 0; width: 0; }
-        .db-entry-scroll { scrollbar-gutter: stable; }
-        .db-entry-placeholder { background: rgba(249, 247, 242, 0.94); }
-
-        .reader-modal { position: fixed; }
-        .reader-sidebar {
-            position: absolute;
-            inset: 0 auto 0 0;
-            width: min(24rem, calc(100vw - 3rem));
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 250ms ease-out;
-            box-shadow: 10px 0 28px rgba(38, 29, 22, 0.10);
-        }
-        .reader-sidebar.is-open { transform: translateX(0); }
-        .reader-sidebar-tab {
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3rem;
-            min-height: 8.5rem;
-            border: 1px solid #DED6C4;
-            border-left: 0;
-            border-radius: 0 0.25rem 0.25rem 0;
-            background: rgba(249, 247, 242, 0.96);
-            box-shadow: 5px 4px 15px rgba(38, 29, 22, 0.08);
-        }
-        .reader-sidebar-tab-label {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            white-space: nowrap;
-        }
-        .reader-sidebar.is-open .reader-sidebar-tab { opacity: 0; pointer-events: none; }
-        .reader-main { width: 100%; min-width: 0; }
-
-        @media (max-width: 767px) {
-            #dbEntryStage { left: 0.5rem; right: 0.5rem; bottom: 0.5rem; }
-            #dbEntryPanels.split-layout { flex-direction: column; overflow-y: auto; margin-left: 0; margin-right: 0; }
-            .db-entry-card.split-card { width: 100%; min-height: 70vh; flex: 0 0 auto; }
-            .reader-sidebar { width: min(22rem, calc(100vw - 3rem)); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .reader-sidebar { transition: none; }
-        }
-
-    </style>
 
 </head>
 <body class="bg-ancient-50 text-ancient-900 font-body font-medium antialiased overflow-x-hidden flex flex-col h-screen">
 
-    <nav class="fixed w-full top-0 z-[600] bg-ancient-100/90 backdrop-blur-md border-b border-ancient-200/50 h-20 shrink-0">
+    <nav id="mainNav" class="fixed w-full top-0 z-[600] bg-ancient-100/90 backdrop-blur-md border-b border-ancient-200/50 h-20 shrink-0">
         <div class="px-6 md:px-10 h-full flex items-center justify-between w-full mx-auto">
             <div class="flex items-center gap-4 shrink-0">
                 <a href="#home" onclick="switchMode('landing')" class="block relative w-8 h-12 group shrink-0">
@@ -175,7 +34,7 @@
                 </div>
             </div>
 
-            <!-- Header Links - Kept visible, but sub-links hidden dynamically in DB view -->
+            
             <div id="nav-landing-links" class="hidden md:flex flex-1 justify-center gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-ancient-600">
                 <a href="#/home" class="hover:text-ancient-900 transition-colors">Home</a>
                 <a href="#/project" class="nav-sub-link hover:text-ancient-900 transition-colors">Project</a>
@@ -183,7 +42,7 @@
                 <a href="#/team" class="nav-sub-link hover:text-ancient-900 transition-colors">Team</a>
             </div>
 
-            <!-- Shown in Database -->
+            
             <div id="nav-db-search" class="hidden flex-1 max-w-xl mx-auto relative group">
                 <div class="relative z-50">
                     <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-ancient-400"></i>
@@ -207,6 +66,7 @@
             </div>
 
             <div id="nav-db-tools" class="flex justify-end items-center gap-6 shrink-0 min-w-[150px]">
+                <button id="mobileMenuButton" type="button" onclick="toggleMobileMenu()" class="mobile-only items-center justify-center gap-2 rounded-full border border-ancient-200 bg-white/70 px-3 text-ancient-800 shadow-sm" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open site menu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span class="text-[9px] font-bold uppercase tracking-widest">Menu</span></button>
                 <button id="nav-enter-db-btn" onclick="window.location.hash = '#/database'" class="text-ancient-900 hover:text-highlight transition-colors flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em]"><i class="fa-solid fa-box-archive text-sm"></i> Database</button>
                 <div id="nav-db-actions" class="hidden flex items-center gap-3">
                     <div class="flex bg-white rounded p-1 border border-ancient-200 shadow-sm">
@@ -226,7 +86,33 @@
         </div>
     </nav>
 
-    <!-- Scroll smooth added to parent scroll container -->
+    
+    <div id="mobileMenu" class="fixed inset-0 z-[900] hidden md:hidden" aria-hidden="true">
+        <button type="button" class="absolute inset-0 bg-ancient-900/35 backdrop-blur-sm" onclick="closeMobileMenu()" aria-label="Close menu"></button>
+        <aside id="mobileMenuPanel" class="absolute right-0 top-0 h-full bg-ancient-50 border-l border-ancient-200 shadow-2xl p-5 flex flex-col translate-x-full transition-transform duration-300">
+            <div class="flex items-center justify-between pb-5 border-b border-ancient-200">
+                <div><div class="font-heading text-2xl text-ancient-900">Festivals <span class="font-subheading italic text-ancient-500">&</span> Society</div><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-ancient-400 mt-1">Navigation</div></div>
+                <button type="button" onclick="closeMobileMenu()" class="w-11 h-11 rounded-full border border-ancient-200 bg-white flex items-center justify-center text-ancient-700" aria-label="Close menu"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <nav class="static h-auto bg-transparent border-0 backdrop-blur-none mt-6 flex-1 overflow-y-auto">
+                <div class="flex flex-col gap-1 p-0">
+                    <button onclick="navigateMobile('#/home')" class="mobile-menu-link">Home <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="navigateMobile('#/project')" class="mobile-menu-link">Project <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="navigateMobile('#/blog')" class="mobile-menu-link">Blog <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="navigateMobile('#/team')" class="mobile-menu-link">Team <i class="fa-solid fa-arrow-right"></i></button>
+                    <div class="my-4 h-px bg-ancient-200"></div>
+                    <button onclick="navigateMobile('#/database')" class="flex items-center justify-between rounded bg-[#3E3025] text-white px-4 py-4 text-left text-xs font-bold uppercase tracking-widest">Open database <i class="fa-solid fa-box-archive"></i></button>
+                    <div class="mt-5 text-[9px] font-bold uppercase tracking-[0.18em] text-ancient-400">Database sections</div>
+                    <button onclick="navigateMobile('#/database')" class="mobile-menu-link">Map <i class="fa-solid fa-map"></i></button>
+                    <button onclick="navigateMobile('#/database'); setTimeout(() => switchDbView('grid'), 80)" class="mobile-menu-link">Festivals <i class="fa-solid fa-star"></i></button>
+                    <button onclick="navigateMobile('#/locations')" class="mobile-menu-link">Locations <i class="fa-solid fa-location-dot"></i></button>
+                    <button onclick="navigateMobile('#/sources')" class="mobile-menu-link">Sources <i class="fa-solid fa-file-lines"></i></button>
+                </div>
+            </nav>
+        </aside>
+    </div>
+
+    
     <main id="landing-view" class="block w-full flex-1 overflow-y-auto scroll-smooth pt-20">
         <section id="home" class="relative min-h-screen bg-ancient-100 flex flex-col items-center justify-center -mt-20">
             <div class="mb-10 w-32 h-44 z-10">
@@ -244,6 +130,7 @@
             <div class="absolute bottom-10 left-10 flex gap-6 items-center opacity-70 reveal-up delay-200">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/2880px_University_of_Vienna_Logo.png" alt="University of Vienna" class="h-10 mix-blend-multiply grayscale brightness-0">
                 <img src="https://cdn.brandfetch.io/idD89tPeew/w/400/h/400/theme/dark/icon.jpeg?c=1dxbfHSJFAPEGdCLU4o5B" alt="FWF" class="h-10 mix-blend-multiply opacity-90 rounded-sm">
+                <img src="https://res.cloudinary.com/dp3g7dyx9/image/upload/v1784048020/Historische-Kulturwissenschaft_A4_en_4c_vr22fp.jpg" alt="Faculty of Historical and Cultural Studies" class="h-11 max-w-[12rem] w-auto object-contain mix-blend-multiply grayscale contrast-125 opacity-75">
             </div>
             <div class="absolute bottom-10 w-full flex justify-center reveal-up delay-300">
                 <a href="#project" class="text-ancient-400 hover:text-ancient-900 transition-colors animate-bounce p-4"><i class="fa-solid fa-arrow-down text-xl"></i></a>
@@ -253,11 +140,11 @@
         <section id="project" class="py-12 lg:py-16 bg-ancient-50 relative">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <div class="lg:col-span-1 flex flex-col justify-start pt-2 pr-8 relative group">
+                <div class="about-preview-card lg:col-span-1 flex flex-col justify-start self-start pt-2 pr-8 relative group">
                     <button onclick="openAboutEditModal()" class="admin-edit-btn is-admin bg-white/80 hover:bg-white text-ancient-900 p-2 rounded backdrop-blur shadow-sm"><i class="fa-solid fa-pen"></i></button>
                     <h2 id="about-preview-title" class="font-heading text-5xl text-ancient-900 mb-6 leading-tight reveal-up delay-100">About the <br>project</h2>
-                    <div id="about-preview-desc" class="text-ancient-700 font-body text-lg leading-relaxed mb-6 reveal-up delay-200 line-clamp-[12]">Egypt during the Hellenistic and Roman periods presents an extraordinary potential to explore the intersection of macro-historical forces with everyday social and economic life.</div>
-                    <button onclick="window.location.hash = '#/about'" class="reveal-up delay-300 w-max flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-600 hover:text-ancient-900 transition-colors border-b border-ancient-300 hover:border-ancient-900 pb-1 mt-auto">Read Full Overview <i class="fa-solid fa-arrow-right"></i></button>
+                    <div id="about-preview-desc" class="text-ancient-700 font-body text-lg leading-relaxed mb-6 reveal-up delay-200 line-clamp-[8] md:line-clamp-[10]">Egypt during the Hellenistic and Roman periods presents an extraordinary potential to explore the intersection of macro-historical forces with everyday social and economic life.</div>
+                    <button onclick="window.location.hash = '#/about'" class="reveal-up delay-300 w-max flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-600 hover:text-ancient-900 transition-colors border-b border-ancient-300 hover:border-ancient-900 pb-1 mt-2">Read Full Overview <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
 
                 <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -273,7 +160,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-span-1 bg-ancient-100 p-8 rounded-sm shadow-sm relative group hover:shadow-md transition-all reveal-up delay-200 flex flex-col">
+                    <div id="news-card" onclick="openLatestNews()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLatestNews(); }" role="link" tabindex="0" class="col-span-1 bg-ancient-100 p-8 rounded-sm shadow-sm relative group hover:shadow-md transition-all reveal-up delay-200 flex flex-col cursor-pointer focus:outline-none focus:ring-2 focus:ring-ancient-400">
                         <span class="text-[9px] font-bold uppercase tracking-widest text-ancient-500 mb-4 block">Project News</span>
                         <div class="w-full aspect-[4/3] bg-ancient-200 mb-6 overflow-hidden rounded-sm relative shadow-inner shrink-0">
                             <img id="news-img" src="" alt="News Image" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
@@ -294,7 +181,7 @@
                     <div class="flex justify-between items-center px-8 pt-7 pb-4">
                         <div>
                             <span class="text-[9px] font-bold uppercase tracking-widest text-ancient-500 block mb-1">Project</span>
-                            <h3 class="font-heading text-3xl text-ancient-900 leading-none">Upcoming events</h3>
+                            <h3 class="font-heading text-3xl text-ancient-900 leading-none">News and upcoming events</h3>
                         </div>
                         <button onclick="openEventEditModal()" class="hidden admin-only items-center gap-2 text-[10px] font-bold uppercase tracking-widest bg-[#3E3025] hover:bg-black text-white px-4 py-2 rounded transition-colors shadow-sm flex"><i class="fa-solid fa-plus"></i> New event</button>
                     </div>
@@ -330,31 +217,58 @@
                         </div>
                         
                         <div class="flex flex-wrap gap-4 mt-8 pt-4">
-                            <a href="https://altegeschichte.univie.ac.at/en/about-us/members/staff/chepel/" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-white border border-ancient-300 text-ancient-900 text-[10px] font-bold uppercase tracking-widest hover:bg-ancient-100 transition-all rounded shadow-sm"><i class="fa-solid fa-university"></i> University Profile</a>
-                            <a href="https://univie.academia.edu/ElenaChepel" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-[#3E3025] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all rounded shadow-md"><i class="fa-brands fa-researchgate"></i> Academia.edu</a>
+                            <a href="https://altegeschichte.univie.ac.at/en/about-us/members/staff/chepel/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3 bg-white border border-ancient-300 text-ancient-900 text-[10px] font-bold uppercase tracking-widest hover:bg-ancient-100 transition-all rounded shadow-sm"><i class="fa-solid fa-university"></i> University Profile</a>
+                            <a href="https://univie.academia.edu/ElenaChepel" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3 bg-[#3E3025] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all rounded shadow-md"><i class="fa-brands fa-researchgate"></i> Academia.edu</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Persistent Footer -->
+        
         <footer class="bg-[#261D16] text-[#DED6C4] py-12 border-t border-[#3E3025]">
             <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex items-center gap-6">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/2880px_University_of_Vienna_Logo.png" alt="University of Vienna" class="h-10 w-auto object-contain invert brightness-0">
                     <img src="https://cdn.brandfetch.io/idD89tPeew/w/400/h/400/theme/dark/icon.jpeg?c=1dxbfHSJFAPEGdCLU4o5B" alt="FWF" class="h-10 w-auto object-contain rounded-sm shadow-md mix-blend-screen opacity-90">
+                    <img src="https://res.cloudinary.com/dp3g7dyx9/image/upload/v1784048020/Historische-Kulturwissenschaft_A4_en_4c_vr22fp.jpg" alt="Faculty of Historical and Cultural Studies" class="h-11 max-w-[12rem] w-auto object-contain grayscale invert mix-blend-screen opacity-75 contrast-125">
                 </div>
                 <div class="text-[9px] font-bold uppercase tracking-[0.15em] text-[#C7B69F] text-center md:text-right">
                     <p>&copy; 2026 Dr. Elena Chepel</p>
                     <p>&copy; 2026 Dr. Arkadiy Avdokhin (web design) </p>
-                    <p class="mt-2 text-[#8C7355]">FWF Project P 37192</p>
+                    <p class="mt-2 text-[#8C7355]">FWF Project 10.55776/RIC7796923</p>
                 </div>
             </div>
         </footer>
     </main>
 
     <main id="database-view" class="hidden flex-1 relative overflow-hidden flex flex-row w-full pt-20">
+
+        
+        <div id="mobileDbControls" class="mobile-only flex-col gap-2">
+            <div class="flex gap-2 items-center">
+                <label class="relative flex-1">
+                    <span class="sr-only">Search database</span>
+                    <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-ancient-400"></i>
+                    <input type="search" id="mobileSearchInput" placeholder="Search database…" class="w-full h-11 rounded-full border border-ancient-200 bg-white pl-10 pr-4 text-sm shadow-sm focus:outline-none focus:border-ancient-400">
+                </label>
+                <button type="button" onclick="toggleMobileDbFilters()" class="w-11 h-11 rounded-full border border-ancient-200 bg-white text-ancient-700 shadow-sm flex items-center justify-center" aria-controls="mobileDbAdvanced" aria-expanded="false" id="mobileDbFilterButton"><i class="fa-solid fa-sliders"></i></button>
+            </div>
+            <div id="mobileDbTabs" class="flex gap-1 overflow-x-auto pb-0.5">
+                <button data-mobile-db-view="map" onclick="switchDbView('map')" class="mobile-db-tab">Map</button>
+                <button data-mobile-db-view="grid" onclick="switchDbView('grid')" class="mobile-db-tab">Festivals</button>
+                <button data-mobile-db-view="locations" onclick="switchDbView('locations')" class="mobile-db-tab">Locations</button>
+                <button data-mobile-db-view="sources" onclick="switchDbView('sources')" class="mobile-db-tab">Sources</button>
+            </div>
+            <div id="mobileDbAdvanced" class="hidden absolute top-full left-2 right-2 mt-1 bg-white border border-ancient-200 rounded-lg shadow-2xl p-4">
+                <div class="flex justify-between items-center mb-3"><span class="text-[10px] font-bold uppercase tracking-widest text-ancient-500">Advanced filters</span><button onclick="toggleMobileDbFilters(false)" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-times"></i></button></div>
+                <div class="space-y-3">
+                    <input type="text" id="mobileAdvDeity" placeholder="Deity" class="w-full border border-ancient-200 rounded p-3 text-sm bg-ancient-50 focus:outline-none focus:border-ancient-400">
+                    <input type="text" id="mobileAdvTime" placeholder="Time / date" class="w-full border border-ancient-200 rounded p-3 text-sm bg-ancient-50 focus:outline-none focus:border-ancient-400">
+                    <input type="text" id="mobileAdvStatus" placeholder="Status / tag" class="w-full border border-ancient-200 rounded p-3 text-sm bg-ancient-50 focus:outline-none focus:border-ancient-400">
+                </div>
+            </div>
+        </div>
         
         <div id="searchResultsPanel" class="absolute left-6 top-6 bottom-6 w-80 bg-white/95 backdrop-blur-xl shadow-2xl border border-ancient-200 rounded z-[500] flex flex-col transform -translate-x-[120%] opacity-0 transition-all duration-300">
             <div class="p-4 border-b border-ancient-100 flex justify-between items-center bg-ancient-50/50">
@@ -389,12 +303,12 @@
         </div>
 
         <div id="contentLayer" class="absolute inset-0 z-10 pointer-events-none flex flex-col">
-            <!-- Grid View: Wrapper passes events through so map is draggable. Cards trap events. -->
+            
             <div id="viewGrid" class="w-full h-full overflow-y-auto p-8 pt-28 hidden transition-colors duration-500 bg-transparent pointer-events-none">
                 <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20 items-start" id="gridContainer"></div>
             </div>
 
-            <!-- Table View: Reconstructed layout per original -->
+            
             <div id="viewTable" class="w-full h-full overflow-y-auto bg-ancient-50 pointer-events-auto hidden flex-col">
                 <div class="w-full bg-white px-8 md:px-12 py-8 border-b border-ancient-200 flex justify-between items-center shrink-0 shadow-sm z-10">
                     <h2 class="font-heading text-3xl text-ancient-900">Database Records</h2>
@@ -448,7 +362,7 @@
         </div>
     </div>
 
-    <!-- BLOG POST READING MODAL (left sidebar + main reader) -->
+    
     <div id="articleModal" class="reader-modal fixed inset-0 z-[1000] bg-white hidden flex overflow-hidden opacity-0 transition-opacity duration-300">
         <aside id="blogSidebar" class="reader-sidebar bg-ancient-50 border-r border-ancient-200 flex flex-col h-full min-h-0" onmouseenter="cancelReaderSidebarCollapse('blog'); openReaderSidebar('blog')" onmouseleave="scheduleReaderSidebarCollapse('blog')" onfocusin="openReaderSidebar('blog')" onfocusout="handleReaderSidebarFocusOut('blog', event)">
             <button id="blogSidebarToggle" type="button" class="reader-sidebar-tab flex flex-col items-center justify-center gap-2 text-ancient-700 hover:text-ancient-900" onclick="toggleReaderSidebar('blog')" aria-controls="blogSidebar" aria-expanded="false" aria-label="Show more blog posts"><i class="fa-regular fa-calendar" aria-hidden="true"></i><span class="reader-sidebar-tab-label text-[9px] font-bold uppercase tracking-widest">More posts</span></button>
@@ -464,7 +378,8 @@
         <div class="reader-main flex-1 flex flex-col h-full overflow-hidden min-h-0">
             <div class="w-full bg-white/90 backdrop-blur border-b border-ancient-100 p-6 flex justify-between items-center z-20 shrink-0">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-ancient-500" id="articleDate"></span>
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-3 md:gap-6">
+                    <button type="button" onclick="toggleReaderSidebar('blog')" class="mobile-only items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-ancient-700"><i class="fa-regular fa-calendar"></i><span>All posts</span></button>
                     <button id="articleEditBtn" onclick="editViewedArticle()" class="hidden admin-only items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-600 hover:text-ancient-900 transition-colors flex"><i class="fa-solid fa-pen"></i> Edit</button>
                     <button onclick="closeArticleModal()" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-900 hover:text-[#D9534F] transition-colors"><span>Close</span> <i class="fa-solid fa-times text-lg"></i></button>
                 </div>
@@ -481,7 +396,7 @@
         </div>
     </div>
 
-    <!-- FEATURED OBJECTS READING MODAL (left sidebar + main reader) -->
+    
     <div id="featuredModal" class="reader-modal fixed inset-0 z-[1000] bg-white hidden flex overflow-hidden opacity-0 transition-opacity duration-300">
         <aside id="featuredSidebar" class="reader-sidebar bg-ancient-50 border-r border-ancient-200 flex flex-col h-full min-h-0" onmouseenter="cancelReaderSidebarCollapse('featured'); openReaderSidebar('featured')" onmouseleave="scheduleReaderSidebarCollapse('featured')" onfocusin="openReaderSidebar('featured')" onfocusout="handleReaderSidebarFocusOut('featured', event)">
             <button id="featuredSidebarToggle" type="button" class="reader-sidebar-tab flex flex-col items-center justify-center gap-2 text-ancient-700 hover:text-ancient-900" onclick="toggleReaderSidebar('featured')" aria-controls="featuredSidebar" aria-expanded="false" aria-label="Show more featured objects"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><span class="reader-sidebar-tab-label text-[9px] font-bold uppercase tracking-widest">More objects</span></button>
@@ -497,7 +412,8 @@
         <div class="reader-main flex-1 flex flex-col h-full overflow-hidden min-h-0">
             <div class="w-full bg-white/90 backdrop-blur border-b border-ancient-100 p-6 flex justify-between items-center z-20 shrink-0">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-ancient-500">Featured Object</span>
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-3 md:gap-6">
+                    <button type="button" onclick="toggleReaderSidebar('featured')" class="mobile-only items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-ancient-700"><i class="fa-solid fa-layer-group"></i><span>Objects</span></button>
                     <button id="featuredEditBtn" onclick="editViewedFeatured()" class="hidden admin-only items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-600 hover:text-ancient-900 transition-colors flex"><i class="fa-solid fa-pen"></i> Edit</button>
                     <button onclick="closeFeaturedModal()" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-900 hover:text-[#D9534F] transition-colors"><span>Close</span> <i class="fa-solid fa-times text-lg"></i></button>
                 </div>
@@ -506,6 +422,17 @@
                 <div class="max-w-3xl mx-auto w-full py-12 px-6" id="featuredMainBody"></div>
             </div>
         </div>
+    </div>
+
+    
+    <div id="featuredImageLightbox" class="fixed inset-0 z-[1250] hidden items-center justify-center bg-[#17110d]/95 p-3 md:p-8 opacity-0 transition-opacity duration-300" onclick="if(event.target === this) closeFeaturedImageLightbox()" role="dialog" aria-modal="true" aria-label="Featured object image viewer">
+        <button type="button" onclick="closeFeaturedImageLightbox()" class="absolute top-4 right-4 md:top-6 md:right-6 w-12 h-12 rounded-full border border-white/25 bg-black/20 text-white flex items-center justify-center hover:bg-white hover:text-ancient-900 transition-colors" aria-label="Close full-screen image"><i class="fa-solid fa-times text-xl"></i></button>
+        <figure class="max-w-[96vw] max-h-[94dvh] bg-[#F9F7F2] border border-[#C7B69F] p-2 md:p-4 shadow-2xl rounded-sm flex flex-col">
+            <div class="min-h-0 flex-1 bg-[#261D16] border border-ancient-300/50 p-1 md:p-2 flex items-center justify-center">
+                <img id="featuredLightboxImage" src="" alt="" class="max-w-full max-h-[82dvh] object-contain">
+            </div>
+            <figcaption id="featuredLightboxCaption" class="font-heading text-lg md:text-xl text-ancient-800 text-center px-3 pt-3 pb-1"></figcaption>
+        </figure>
     </div>
 
     <div id="loginModal" class="fixed inset-0 z-[1000] auth-overlay hidden flex items-center justify-center p-6 transition-opacity opacity-0">
@@ -564,6 +491,7 @@
         <div class="w-full bg-ancient-50 border-b border-ancient-200 p-6 flex justify-between items-center z-20 shrink-0 shadow-sm">
             <span class="font-heading text-2xl text-ancient-900" id="cmsTitle">Edit Content</span>
             <div class="flex items-center gap-4">
+                <button type="button" onclick="deleteCMSRecord()" id="btnDeleteCMS" class="hidden text-[10px] font-bold uppercase tracking-widest text-[#D9534F] hover:bg-red-50 border border-transparent hover:border-red-200 transition-colors px-4 py-2 rounded">Delete object</button>
                 <button onclick="closeCMSModal()" class="text-[10px] font-bold uppercase tracking-widest text-ancient-500 hover:text-[#D9534F] transition-colors px-4 py-2"><i class="fa-solid fa-arrow-left mr-2"></i> Cancel</button>
                 <button onclick="saveCMSContent()" class="bg-[#3E3025] text-white px-8 py-2.5 rounded shadow-md text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-colors">Save Changes</button>
             </div>
@@ -629,7 +557,7 @@
                     <input type="text" id="blogEditImgUrl" class="w-full border-b border-ancient-300 py-3 font-body text-sm focus:outline-none focus:border-ancient-600 bg-transparent text-ancient-900 placeholder-ancient-200" placeholder="https://example.com/image.jpg">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold uppercase tracking-widest text-ancient-500 mb-2">Publication Date <span class="text-ancient-300 normal-case tracking-normal font-body">(free text — leave blank for today's date)</span></label>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-ancient-500 mb-2">Publication Date <span class="text-ancient-300 normal-case tracking-normal font-body">(include the year; this date determines the post order)</span></label>
                     <input type="text" id="blogEditDate" class="w-full border-b border-ancient-300 py-3 font-body text-sm focus:outline-none focus:border-ancient-600 bg-transparent text-ancient-900 placeholder-ancient-200" placeholder="e.g., 30 May 2026">
                 </div>
                 
@@ -645,7 +573,7 @@
         </div>
     </div>
 
-    <!-- UPCOMING EVENT EDITOR MODAL (clone of blog editor) -->
+    
     <div id="eventEditModal" class="fixed inset-0 z-[1050] bg-white hidden flex flex-col opacity-0 transition-opacity duration-300 overflow-hidden">
         <input type="hidden" id="eventEditId">
         <div class="w-full bg-ancient-50 border-b border-ancient-200 p-6 flex justify-between items-center z-20 shrink-0 shadow-sm">
@@ -685,12 +613,12 @@
         </div>
     </div>
 
-    <!-- UPCOMING EVENT READING MODAL (left sidebar + main reader) -->
+    
     <div id="eventModal" class="fixed inset-0 z-[1000] bg-white hidden flex flex-col md:flex-row overflow-hidden opacity-0 transition-opacity duration-300">
         <aside class="w-full md:w-80 lg:w-96 bg-ancient-50 border-b md:border-b-0 md:border-r border-ancient-200 flex flex-col shrink-0 max-h-[38vh] md:max-h-none md:h-full min-h-0">
             <div class="p-5 border-b border-ancient-200 flex justify-between items-center shrink-0 bg-ancient-100/60">
                 <div>
-                    <div class="font-heading text-xl text-ancient-900 leading-none">Upcoming</div>
+                    <div class="font-heading text-xl text-ancient-900 leading-none">News &amp; upcoming</div>
                     <div class="text-[9px] uppercase tracking-[0.2em] text-ancient-400 font-bold mt-1">Events</div>
                 </div>
                 <button onclick="openEventEditModal()" class="hidden admin-only items-center gap-2 text-[10px] font-bold uppercase tracking-widest bg-[#3E3025] hover:bg-black text-white px-3 py-2 rounded transition-colors shadow-sm flex"><i class="fa-solid fa-plus"></i> New</button>
@@ -820,7 +748,7 @@
 
     <div id="sourceDetailModal" class="hidden"></div>
 
-    <!-- LOCATION EDITOR MODAL -->
+    
     <div id="locationEditModal" class="fixed inset-0 z-[1000] auth-overlay hidden flex justify-center items-center p-4">
         <div class="bg-white w-full max-w-3xl h-[90vh] rounded shadow-2xl flex flex-col overflow-hidden">
             <div class="px-10 py-6 border-b border-ancient-200 flex justify-between items-center bg-[#F9F7F2] shrink-0">
@@ -874,7 +802,7 @@
         </div>
     </div>
 
-    <!-- SOURCE EDITOR MODAL -->
+    
     <div id="sourceEditModal" class="fixed inset-0 z-[1000] auth-overlay hidden flex justify-center items-center p-4">
         <div class="bg-white w-full max-w-3xl h-[92vh] rounded shadow-2xl flex flex-col overflow-hidden">
             <div class="px-10 py-6 border-b border-ancient-200 flex justify-between items-center bg-[#F9F7F2] shrink-0">
@@ -924,1954 +852,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./assets/js/map-config.js" defer></script>
     
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        // --- PASTE YOUR FIREBASE CONFIG HERE ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyCRI772ToQgr_Z3yYs9RBku4ChhRutDS6U",
-            authDomain: "festivals-in-roman-egypt.firebaseapp.com",
-            projectId: "festivals-in-roman-egypt",
-            storageBucket: "festivals-in-roman-egypt.firebasestorage.app",
-            messagingSenderId: "666187351125",
-            appId: "1:666187351125:web:e871695a3df5303e7e00dc"
-        };
-
-        let app, db, auth;
-
-        window.festivals = [
-            { id: "mock_1", name: "Kapitolia", variants: "ἀγὼν Καπετωλιακός", type: "agon", locations: [{ name: "Oxyrhynchus", lat: 28.536, lng: 30.788 }], trismegistos: "1524", attestedSince: "1st c. AD", deities: ["Jupiter"] }
-        ];
-        window.siteContent = {};
-        window.blogPosts = [];
-        window.locations = [
-            { id: "mock_loc_1", slug: "oxyrhynchus", name: "Oxyrhynchus", variants: "Ὀξύρυγχος", type: "nome capital", region: "Oxyrhynchite nome", modern: "el-Bahnasa", lat: 28.536, lng: 30.788, trismegistos: "1524", description: "Metropolis of the Oxyrhynchite nome, source of the largest single trove of Greek papyri." }
-        ];
-        window.sources = [
-            { id: "mock_src_1", slug: "p-oxy-12-1449", name: "P.Oxy. XII 1449", type: "papyrus", language: "Greek", date: "c. AD 213–217", provenance: "Oxyrhynchus", trismegistos: "21826", url: "", edition: "Grenfell & Hunt (1916)", description: "Temple inventory listing cult property and festival expenditure." }
-        ];
-        window.featuredObjects = [
-            { id: "mock_feat_1", slug: "papyrus-oxyrhynchus-12", title: "Papyrus Oxyrhynchus XII", desc: "A second-century documentary papyrus from the Oxyrhynchite nome recording festival expenditure and cult inventory.", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Papyrus_Oxyrhynchus_12.jpg/800px-Papyrus_Oxyrhynchus_12.jpg", date: "2nd c. AD", createdAt: Date.now() }
-        ];
-        window.events = [
-            { id: "mock_evt_1", slug: "project-workshop-vienna", title: "Workshop: Festival Calendars in Roman Egypt", desc: "An informal project workshop bringing together papyrologists and historians of religion to discuss festival calendars.\n\nVenue and registration details to follow.", url: "", date: "Autumn 2026", createdAt: Date.now() }
-        ];
-        window.isAdmin = false;
-        window.map = null;
-        window.markers = [];
-        window.isMapVisible = true;
-        window.isFestivalsLoaded = false;
-        window.isBlogLoaded = false;
-        window.isLocationsLoaded = false;
-        window.isSourcesLoaded = false;
-        window.isFeaturedLoaded = false;
-        window.isEventsLoaded = false;
-        window.currentLocationId = null;
-        window.currentSourceId = null;
-        window.currentFeaturedId = null;
-        window.currentEventId = null;
-
-        // Robust createdAt accessor (handles Firestore Timestamp, number, or absent)
-        window.tsOf = (o) => {
-            const c = o && o.createdAt;
-            if (!c) return 0;
-            if (typeof c === 'number') return c;
-            if (typeof c.toMillis === 'function') return c.toMillis();
-            if (typeof c.seconds === 'number') return c.seconds * 1000;
-            return 0;
-        };
-        // Featured objects, newest first
-        window.sortedFeatured = () => [...(window.featuredObjects || [])].sort((a, b) => window.tsOf(b) - window.tsOf(a));
-        
-        window.generateSlug = (text) => {
-            return text.toString().toLowerCase().trim()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/[\s\W-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
-        };
-
-        window.isFestivalsLoaded = false;
-window.isBlogLoaded = false;
-
-window.handleRouting = () => {
-    const hash = window.location.hash || '#/home';
-    const parts = hash.replace('#/', '').split('/');
-    const route = parts[0] || 'home';
-    const slugOrId = parts[1];
-
-    // Safely close modals if navigating away
-    if (!document.getElementById('detailModal').classList.contains('hidden') && route !== 'festival') {
-        window.executeCloseDetailModal();
-    }
-    if (!document.getElementById('articleModal').classList.contains('hidden') && !(route === 'blog' && slugOrId)) {
-        window.executeCloseArticleModal();
-    }
-    if (!document.getElementById('featuredModal').classList.contains('hidden') && route !== 'featured') {
-        window.executeCloseFeaturedModal();
-    }
-    if (!document.getElementById('eventModal').classList.contains('hidden') && route !== 'event') {
-        window.executeCloseEventModal();
-    }
-    if (!document.getElementById('aboutModal').classList.contains('hidden') && route !== 'about') {
-        window.closeAboutModal();
-    }
-    if (!document.getElementById('locationDetailModal').classList.contains('hidden') && route !== 'location') {
-        window.executeCloseLocationDetail();
-    }
-    if (!document.getElementById('sourceDetailModal').classList.contains('hidden') && route !== 'source' && !(window.sourceLinked && route === 'festival')) {
-        window.executeCloseSourceDetail();
-    }
-
-    // Route Switching Logic
-    if (route === 'database') {
-        window.switchMode('database');
-    } else if (route === 'locations') {
-        window.switchMode('database');
-        window.switchDbView('locations');
-    } else if (route === 'sources') {
-        window.switchMode('database');
-        window.switchDbView('sources');
-    } else if (route === 'location' && slugOrId) {
-        window.switchMode('database');
-        const tryLoad = () => {
-            const l = window.locations.find(x => x.slug === slugOrId || x.id === slugOrId);
-            if (l) window.openLocationDetail(l.id);
-        };
-        if (window.isLocationsLoaded) tryLoad();
-        else { const ck = setInterval(() => { if (window.isLocationsLoaded) { clearInterval(ck); tryLoad(); } }, 100); }
-    } else if (route === 'source' && slugOrId) {
-        window.switchMode('database');
-        const tryLoad = () => {
-            const s = window.sources.find(x => x.slug === slugOrId || x.id === slugOrId);
-            if (s) window.openSourceDetail(s.id);
-        };
-        if (window.isSourcesLoaded) tryLoad();
-        else { const ck = setInterval(() => { if (window.isSourcesLoaded) { clearInterval(ck); tryLoad(); } }, 100); }
-    } else if (route === 'festival' && slugOrId) {
-        window.switchMode('database');
-        
-        const tryLoadFestival = () => {
-            const f = window.festivals.find(x => x.slug === slugOrId || x.id === slugOrId);
-            if (!f) return;
-            const alreadyOpen = !document.getElementById('detailModal').classList.contains('hidden') && window.currentRecordId === f.id;
-            if (!alreadyOpen) window.openDetailModal(f.id);
-        };
-
-        if (window.isFestivalsLoaded) tryLoadFestival();
-        else {
-            const checkData = setInterval(() => {
-                if (window.isFestivalsLoaded) { clearInterval(checkData); tryLoadFestival(); }
-            }, 100);
-        }
-    } else if (route === 'blog' && slugOrId) {
-        window.switchMode('landing'); // Ensure background is correct
-        
-        const tryLoadBlog = () => {
-            const b = window.blogPosts.find(x => x.slug === slugOrId || x.id === slugOrId);
-            if (b) window.openArticleModal(b.id);
-        };
-
-        if (window.isBlogLoaded) tryLoadBlog();
-        else {
-             const checkData = setInterval(() => {
-                if (window.isBlogLoaded) { clearInterval(checkData); tryLoadBlog(); }
-            }, 100);
-        }
-    } else if (route === 'featured') {
-        window.switchMode('landing');
-        const tryLoadFeatured = () => window.openFeaturedModal(slugOrId || null);
-        if (window.isFeaturedLoaded || (window.featuredObjects && window.featuredObjects.length)) tryLoadFeatured();
-        else {
-            const ck = setInterval(() => { if (window.isFeaturedLoaded) { clearInterval(ck); tryLoadFeatured(); } }, 100);
-            // Fallback so a legacy/empty store still opens the modal
-            setTimeout(() => { clearInterval(ck); if (document.getElementById('featuredModal').classList.contains('hidden')) tryLoadFeatured(); }, 1500);
-        }
-    } else if (route === 'event') {
-        window.switchMode('landing');
-        const tryLoadEvent = () => window.openEventModal(slugOrId || null);
-        if (window.isEventsLoaded || (window.events && window.events.length)) tryLoadEvent();
-        else {
-            const ck = setInterval(() => { if (window.isEventsLoaded) { clearInterval(ck); tryLoadEvent(); } }, 100);
-            setTimeout(() => { clearInterval(ck); if (document.getElementById('eventModal').classList.contains('hidden')) tryLoadEvent(); }, 1500);
-        }
-    } else if (route === 'about') {
-        window.switchMode('landing');
-        window.openAboutModal();
-    } else {
-        // Fallback to landing page and anchor scroll
-        window.switchMode('landing');
-        // FIX: Added 'blog' to the fallback array so the header link works
-        if (['home', 'project', 'blog', 'team'].includes(route)) {
-            const target = document.getElementById(route);
-            if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
-        }
-    }
-};
-
-// Bind the router to browser history events
-window.addEventListener('hashchange', window.handleRouting);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            window.initScrollObserver();
-            window.setupSearchListeners();
-            window.mountToolbars();
-            
-            if(firebaseConfig.apiKey !== "") {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                initFirebaseAuth();
-                initFirestoreSync();
-            } else {
-                window.renderSiteData();
-            }
-            // FIX: Let the router handle the initial state instead of forcing landing mode
-            window.handleRouting();
-        });
-
-        // 1. Add this variable to track the currently viewed modal ID
-        window.currentRecordId = null;
-
-        // 2. Fix the missing Edit function (Task 2)
-        window.editCurrentRecord = () => {
-            if (window.currentRecordId) {
-                window.closeDetailModal();
-                window.openEditModal(window.currentRecordId);
-            }
-        };
-
-        window.editCurrentLocation = () => {
-            if (window.currentLocationId) { const id = window.currentLocationId; window.executeCloseLocationDetail(); window.openLocationEditModal(id); }
-        };
-        window.editCurrentSource = () => {
-            if (window.currentSourceId) { const id = window.currentSourceId; window.executeCloseSourceDetail(); window.openSourceEditModal(id); }
-        };
-
-        // Context-aware "+" button in the database toolbar
-        window.openCurrentAdd = () => {
-            if (window.activeDbView === 'locations') window.openLocationEditModal();
-            else if (window.activeDbView === 'sources') window.openSourceEditModal();
-            else window.openEditModal();
-        };
-
-        // --- FIREBASE LOGIC ---
-        function initFirebaseAuth() {
-            onAuthStateChanged(auth, (user) => { window.isAdmin = !!user; window.applyAdminUI(); });
-        }
-        function initFirestoreSync() {
-            onSnapshot(collection(db, "festivals"), snap => { 
-            window.festivals = snap.docs.map(d => ({id: d.id, ...d.data()})); 
-            window.isFestivalsLoaded = true;
-            window.renderAll(); 
-            window.handleRouting(); // Trigger route processing once data arrives
-            });
-            onSnapshot(collection(db, "site_content"), snap => { 
-            snap.forEach(d => window.siteContent[d.id] = d.data()); 
-            window.renderSiteData(); 
-            });
-            onSnapshot(collection(db, "blog_posts"), snap => { 
-            window.blogPosts = snap.docs.map(d => ({id: d.id, ...d.data()})); 
-            window.isBlogLoaded = true;
-            window.renderSiteData(); 
-            if (!document.getElementById('articleModal').classList.contains('hidden')) window.renderBlogSidebar(window.currentArticleId);
-            window.handleRouting(); // Trigger route processing once data arrives
-            });
-            onSnapshot(collection(db, "locations"), snap => {
-            window.locations = snap.docs.map(d => ({id: d.id, ...d.data()}));
-            window.isLocationsLoaded = true;
-            window.renderLocations();
-            window.handleRouting();
-            });
-            onSnapshot(collection(db, "sources"), snap => {
-            window.sources = snap.docs.map(d => ({id: d.id, ...d.data()}));
-            window.isSourcesLoaded = true;
-            window.renderSources();
-            window.renderAll(); // refresh festival source-links if a detail modal is open
-            window.handleRouting();
-            });
-            onSnapshot(collection(db, "featured_objects"), snap => {
-            window.featuredObjects = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => window.tsOf(b) - window.tsOf(a));
-            window.isFeaturedLoaded = true;
-            window.renderSiteData();
-            if (!document.getElementById('featuredModal').classList.contains('hidden')) window.renderFeaturedSidebar();
-            window.handleRouting();
-            });
-            onSnapshot(collection(db, "events"), snap => {
-            window.events = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => window.tsOf(b) - window.tsOf(a));
-            window.isEventsLoaded = true;
-            window.renderUpcomingTile();
-            if (!document.getElementById('eventModal').classList.contains('hidden')) window.renderEventSidebar(window.currentEventId);
-            window.handleRouting();
-            });
-        }
-
-        window.handleLogin = async () => {
-            const email = document.getElementById('authEmail').value;
-            const pass = document.getElementById('authPass').value;
-            if(auth) {
-                try { await signInWithEmailAndPassword(auth, email, pass); document.getElementById('loginModal').classList.add('hidden', 'opacity-0'); } 
-                catch (err) { alert("Login Error: " + err.message); }
-            } else {
-                if(pass === 'admin') { window.isAdmin = true; window.applyAdminUI(); document.getElementById('loginModal').classList.add('hidden', 'opacity-0'); }
-            }
-        };
-
-        window.toggleAuthModal = () => {
-            if (window.isAdmin) { 
-                // Show our custom modal instead of system confirm()
-                const m = document.getElementById('logoutModal');
-                m.classList.remove('hidden');
-                setTimeout(() => m.classList.remove('opacity-0'), 10);
-            } else { 
-                const m = document.getElementById('loginModal'); 
-                m.classList.toggle('hidden'); 
-                setTimeout(() => m.classList.toggle('opacity-0'), 10); 
-            }
-        };
-
-        window.closeLogoutModal = () => {
-            const m = document.getElementById('logoutModal');
-            m.classList.add('opacity-0');
-            setTimeout(() => m.classList.add('hidden'), 300);
-        };
-
-        window.confirmLogout = () => {
-            if(auth) signOut(auth); 
-            else { window.isAdmin = false; window.applyAdminUI(); }
-            window.closeLogoutModal();
-        };
-
-        window.applyAdminUI = () => {
-            document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden', !window.isAdmin));
-            document.querySelectorAll('.admin-edit-btn').forEach(el => el.classList.toggle('is-admin', window.isAdmin));
-            document.getElementById('btnAuth').classList.toggle('text-ancient-800', window.isAdmin);
-            document.getElementById('btnViewTable').classList.toggle('hidden', !window.isAdmin);
-            if (!window.isAdmin && !document.getElementById('viewTable').classList.contains('hidden')) window.switchDbView('grid');
-        }
-
-        // --- SITE CONTENT (CMS) ---
-        window.renderSiteData = () => {
-            const fallbackFeat = { title: "Add Featured Object", desc: "Log in to add a featured object.", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Papyrus_Oxyrhynchus_12.jpg/800px-Papyrus_Oxyrhynchus_12.jpg" };
-            const fallbackNews = { title: "Add Project News", url: "" };
-            
-            // Featured is now a collection: show the most recently added; fall back to the legacy singleton, then placeholder
-            const newestFeatured = window.sortedFeatured()[0];
-            const feat = newestFeatured || window.siteContent.featured || fallbackFeat;
-            document.getElementById('feat-title').innerText = feat.title;
-            document.getElementById('feat-desc').innerText = window.plainExcerpt(feat.desc, 160);
-            if(feat.url) document.getElementById('feat-bg').style.backgroundImage = `url('${feat.url}')`;
-
-            const news = window.siteContent.news || fallbackNews;
-            document.getElementById('news-title').innerText = news.title;
-
-            // Bind News 'Read Post' to the latest blog post if available
-            const newsBtn = document.getElementById('news-link');
-            if (window.blogPosts && window.blogPosts.length > 0) {
-                const latestPost = window.blogPosts[0];
-                // Clear out old overrides and set proper hash routing
-                newsBtn.onclick = null; 
-                newsBtn.href = "#/blog/" + (latestPost.slug || latestPost.id);
-            }
-
-        // Render About Section
-        const aboutData = window.siteContent.about || { 
-                title: "About the <br>project", 
-                desc: "Egypt during the Hellenistic and Roman periods presents an extraordinary potential to explore the intersection of macro-historical forces with everyday social and economic life." 
-            };
-            
-            // Landing page preview
-            const previewTitle = document.getElementById('about-preview-title');
-            const previewDesc = document.getElementById('about-preview-desc');
-            if(previewTitle) previewTitle.innerHTML = aboutData.title;
-            if(previewDesc) previewDesc.textContent = window.plainExcerpt(aboutData.desc, 460);
-
-            // Full Reading Modal injection (rich-text rendered)
-            const fullModalBody = document.querySelector('#aboutModal .max-w-4xl.mx-auto');
-            if (fullModalBody) {
-                fullModalBody.innerHTML = `
-                    <h1 class="font-heading text-5xl md:text-6xl text-ancient-900 mb-12 leading-tight">${aboutData.title.replace('<br>', ' ')}</h1>
-                    <div class="font-body text-xl text-ancient-800 leading-relaxed space-y-6 max-w-3xl mx-auto">${window.renderRichText(aboutData.desc)}</div>
-                    ${window.endOrnament()}
-                `;
-            }
-            
-            // Dynamic News Image parsing: Use newest Blog image first, else fallback CMS image
-            if (window.blogPosts && window.blogPosts.length > 0 && window.blogPosts[0].url) {
-                document.getElementById('news-img').src = window.blogPosts[0].url;
-            } else if (news.url) {
-                document.getElementById('news-img').src = news.url;
-            }
-
-            // Render PI / Team Section from Firebase
-            const piData = window.siteContent.pi || { 
-                title: "Dr. Elena Chepel", 
-                desc: "<p>Dr. Elena Chepel leads the <span class=\"italic font-subheading text-lg\">Festivals and Society in Ptolemaic and Roman Egypt</span> project.</p>",
-                url: "https://altegeschichte.univie.ac.at/fileadmin/_processed_/csm_Chepel2024_547e415597.jpg"
-            };
-
-            const piNameEl = document.getElementById('pi-name');
-            const piImgEl = document.getElementById('pi-img');
-            const teamContainer = document.getElementById('team-desc');
-
-            if (piNameEl) piNameEl.innerHTML = piData.title;
-            if (piImgEl && piData.url) piImgEl.src = piData.url;
-            if (teamContainer) teamContainer.innerHTML = piData.desc;
-
-            const blogCont = document.getElementById('blogContainer');
-            if(window.blogPosts.length === 0) blogCont.innerHTML = "<p class='text-ancient-400 italic col-span-full'>No blog posts yet.</p>";
-            else blogCont.innerHTML = window.blogPosts.map(b => `
-                <article onclick="window.location.hash = '#/blog/${b.slug || b.id}'" class="group bg-white border border-ancient-100 rounded shadow hover:shadow-xl transition-all duration-300 relative overflow-hidden cursor-pointer">
-                    <button onclick="event.stopPropagation(); openBlogEditModal('${b.id}')" class="admin-edit-btn is-admin bg-white/80 hover:bg-white text-ancient-900 p-2 rounded backdrop-blur z-20"><i class="fa-solid fa-pen"></i></button>
-                    <div class="w-full aspect-[4/3] bg-ancient-200 overflow-hidden relative">
-                        <img src="${b.url || ''}" class="absolute inset-0 w-full h-full object-cover filter sepia-[0.4] group-hover:sepia-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                    </div>
-                    <div class="p-8 relative bg-white">
-                        <h3 class="font-heading text-3xl mb-4 group-hover:text-ancient-600 transition-colors">${b.title}</h3>
-                        <p class="font-body text-ancient-600 line-clamp-3">${window.plainExcerpt(b.content)}</p>
-                        <span class="mt-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ancient-500 group-hover:text-ancient-900 transition-colors border-b border-transparent group-hover:border-ancient-900 pb-1">Read full text <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </article>
-            `).join('');
-            window.renderUpcomingTile();
-            window.applyAdminUI();
-
-        }
-
-        window.openCMSModal = (docId) => {
-            // Resolve the data source for the record being edited
-            let data = {};
-            let titleText = 'Edit ' + docId.replace('_', ' ');
-            if (docId.startsWith('featured_')) {
-                if (docId === 'featured_new') { data = {}; titleText = 'New Featured Object'; }
-                else { data = (window.featuredObjects || []).find(x => x.id === docId.slice(9)) || {}; titleText = 'Edit Featured Object'; }
-            } else {
-                data = window.siteContent[docId] || {};
-                if (docId === 'featured') titleText = 'Edit Featured Object';
-            }
-            document.getElementById('cmsDocId').value = docId;
-            document.getElementById('cmsTitle').innerText = titleText;
-            
-            document.getElementById('cmsTitleField').style.display = 'block';
-            document.getElementById('cmsSlugField').style.display = 'block'; // Added
-            document.getElementById('cmsImgField').style.display = 'block';
-            // Date field is meaningful for Featured objects and blog docs; hidden for PI/News
-            const showDate = (docId === 'featured' || docId.startsWith('featured_') || docId.startsWith('blog_'));
-            document.getElementById('cmsDateField').style.display = showDate ? 'block' : 'none';
-
-            document.getElementById('cmsTitleInput').value = data.title || '';
-            document.getElementById('cmsSlugInput').value = data.slug || ''; // Added
-            document.getElementById('cmsImgUrl').value = data.url || '';
-            document.getElementById('cmsDateInput').value = data.date || '';
-            document.getElementById('cmsDescInput').value = data.desc || '';
-            
-            const m = document.getElementById('cmsModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        }
-
-        window.closeCMSModal = () => {
-            const m = document.getElementById('cmsModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = ''; // Restore background scrolling
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        // Utility function to strip HTML tags from a string
-        const stripHtml = (html) => {
-           let doc = new DOMParser().parseFromString(html, 'text/html');
-           return doc.body.textContent || "";
-        };
-
-        // --- SHARED RICH-TEXT RENDERING (added) ---
-        // Conservative fix for common "mojibake" produced by bad copy/paste (e.g. an em-dash
-        // pasted from Word landing as ",Äî"). These sequences are extremely unlikely to occur
-        // in real prose, so the substitution is safe.
-        window.fixMojibake = (s) => String(s)
-            .replace(/,Äî/g, '\u2014').replace(/,Äì/g, '\u2013')
-            .replace(/,Äù/g, '\u201D').replace(/,Äú/g, '\u201C')
-            .replace(/,Äô/g, '\u2019').replace(/,Äò/g, '\u2018')
-            .replace(/,Ä¶/g, '\u2026');
-
-        // Inline markdown -> HTML (links, bold, italic). Leaves existing inline HTML untouched.
-        window.mdInline = (t) => {
-            if (!t) return '';
-            let s = t;
-            s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,
-                '<a href="$2" target="_blank" rel="noopener" class="text-ancient-600 underline decoration-ancient-300 underline-offset-4 hover:text-ancient-900 transition-colors">$1</a>');
-            s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
-            s = s.replace(/\*([^*\n]+)\*/g, '<i>$1</i>');
-            return s;
-        };
-
-        // Turns authored content (plain text where Enter = new paragraph, lightweight markdown,
-        // and pre-existing single-line block HTML) into clean reading HTML.
-        window.renderRichText = (raw) => {
-            if (!raw) return '';
-            let s = window.fixMojibake(String(raw)).replace(/\r\n/g, '\n');
-            const blockTagRe = /^\s*<(h[1-6]|div|figure|img|blockquote|ul|ol|li|table|p|hr|iframe|section|article|aside|pre)[\s>\/]/i;
-            const out = [];
-            s.split('\n').forEach(rawLine => {
-                const line = rawLine.trim();
-                if (line === '') return; // blank line = paragraph break (spacing handled by CSS)
-                if (blockTagRe.test(line)) { out.push(rawLine); return; } // pre-existing block HTML
-                let m = line.match(/^!\[([^\]]*)\]\(([^)\s]+)[^)]*\)\s*$/); // markdown image
-                if (m) {
-                    const cap = window.mdInline(m[1]);
-                    out.push(`<figure class="my-8"><img src="${m[2]}" class="w-full md:w-3/4 mx-auto rounded shadow-sm border border-ancient-100" alt="${stripHtml(m[1])}">${cap ? `<figcaption class="font-body text-sm italic text-ancient-500 text-center mt-3">${cap}</figcaption>` : ''}</figure>`);
-                    return;
-                }
-                let h = line.match(/^(#{1,4})\s+(.*)$/); // markdown heading
-                if (h) {
-                    const big = h[1].length <= 2;
-                    const cls = big ? 'font-heading text-3xl text-ancient-900 mt-8 mb-3' : 'font-heading text-2xl text-ancient-800 mt-6 mb-2 leading-snug';
-                    out.push(`<h3 class="${cls}">${window.mdInline(h[2])}</h3>`);
-                    return;
-                }
-                out.push(`<p>${window.mdInline(line)}</p>`);
-            });
-            return out.join('\n');
-        };
-
-        // Plain-text excerpt for clamped previews (strips HTML + markdown reliably).
-        window.plainExcerpt = (raw, maxLen = 220) => {
-            if (!raw) return '';
-            let s = window.fixMojibake(String(raw)).replace(/\r\n/g, '\n');
-            s = s.replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')      // md images
-                 .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')    // md links -> text
-                 .replace(/<[^>]+>/g, ' ')                   // html tags
-                 .replace(/[#*_`>]/g, ' ');                  // residual md syntax
-            s = stripHtml(s).replace(/\s+/g, ' ').trim();    // decode entities + collapse ws
-            if (s.length > maxLen) s = s.slice(0, maxLen).replace(/\s+\S*$/, '') + '\u2026';
-            return s;
-        };
-
-        // Scholarly end-of-text mark + breathing room, reused across readers.
-        window.endOrnament = () => `<div class="flex items-center justify-center gap-4 pt-14 pb-6 text-ancient-300 select-none" aria-hidden="true"><span class="h-px w-12 bg-ancient-200"></span><span class="font-heading text-2xl leading-none">\u2767</span><span class="h-px w-12 bg-ancient-200"></span></div>`;
-
-        // --- UNIFIED EDITORIAL TOOLBAR INSERTER (added) ---
-        // Single implementation used by every rich editor (blog, featured/CMS, about, events,
-        // sources, locations). tagType drives the wrapper inserted around the current selection.
-        window.insertRichTag = (taId, tagType) => {
-            const textarea = document.getElementById(taId);
-            if (!textarea) return;
-            const start = textarea.selectionStart, end = textarea.selectionEnd;
-            const text = textarea.value, selection = text.substring(start, end);
-            let injection = '';
-            switch (tagType) {
-                case 'bold': injection = `<b>${selection || 'bold text'}</b>`; break;
-                case 'italic': injection = `<i>${selection || 'italic text'}</i>`; break;
-                case 'h3': injection = `<h3 class="font-heading text-3xl text-ancient-900 mt-6 mb-3">${selection || 'Heading'}</h3>`; break;
-                case 'subtitle': injection = `<h4 class="font-heading text-2xl text-ancient-800 mt-8 mb-2 leading-snug">${selection || 'Subtitle'}</h4>`; break;
-                case 'center': injection = `<div class="text-center">${selection || 'centered text'}</div>`; break;
-                case 'justify': injection = `<div class="text-justify">${selection || 'justified text'}</div>`; break;
-                case 'quote': injection = `<blockquote class="border-l-2 border-ancient-300 my-8 mx-2 md:mx-6 pl-6 pr-4 py-1 text-lg italic text-ancient-600 font-subheading">${selection || 'Quoted text'}</blockquote>`; break;
-                case 'caption': injection = `<p class="font-body text-sm italic text-ancient-500 text-center mt-2 mb-6">${selection || 'Image caption'}</p>`; break;
-                case 'link': {
-                    const url = prompt('Link URL:', 'https://');
-                    if (!url) return;
-                    injection = `<a href="${url}" target="_blank" rel="noopener" class="text-ancient-600 underline decoration-ancient-300 underline-offset-4 hover:text-ancient-900 transition-colors">${selection || 'link text'}</a>`;
-                    break;
-                }
-                case 'image': {
-                    const url = prompt('Image URL (leave blank to paste later):', '') || 'PASTE_IMAGE_URL_HERE';
-                    const cap = (prompt('Caption (optional — leave blank for none):', '') || '').trim();
-                    const altSafe = (cap || 'Embedded image').replace(/"/g, '&quot;');
-                    const capPart = cap ? `<figcaption class="font-body text-sm italic text-ancient-500 text-center mt-3">${cap}</figcaption>` : '';
-                    injection = `\n<figure class="my-8"><img src="${url}" class="w-full md:w-3/4 mx-auto rounded shadow-sm border border-ancient-100" alt="${altSafe}">${capPart}</figure>\n`;
-                    break;
-                }
-            }
-            textarea.value = text.substring(0, start) + injection + text.substring(end);
-            textarea.focus();
-            textarea.selectionStart = textarea.selectionEnd = start + injection.length;
-        };
-
-        // Reusable toolbar markup (added to every editor). `ta` is the target textarea id.
-        window.richToolbarHTML = (ta) => `
-            <div class="flex flex-wrap gap-1 bg-ancient-50 p-1.5 rounded border border-ancient-200">
-                <button type="button" onclick="insertRichTag('${ta}','bold')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Bold"><i class="fa-solid fa-bold"></i></button>
-                <button type="button" onclick="insertRichTag('${ta}','italic')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Italic"><i class="fa-solid fa-italic"></i></button>
-                <button type="button" onclick="insertRichTag('${ta}','link')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Insert link"><i class="fa-solid fa-link"></i></button>
-                <div class="w-px h-6 bg-ancient-200 mx-1 self-center"></div>
-                <button type="button" onclick="insertRichTag('${ta}','h3')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors font-serif font-bold" title="Heading">T</button>
-                <button type="button" onclick="insertRichTag('${ta}','subtitle')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors font-serif italic text-sm" title="Subtitle">S</button>
-                <div class="w-px h-6 bg-ancient-200 mx-1 self-center"></div>
-                <button type="button" onclick="insertRichTag('${ta}','center')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Align center"><i class="fa-solid fa-align-center"></i></button>
-                <button type="button" onclick="insertRichTag('${ta}','justify')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Justify"><i class="fa-solid fa-align-justify"></i></button>
-                <button type="button" onclick="insertRichTag('${ta}','quote')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Block quote"><i class="fa-solid fa-quote-right"></i></button>
-                <div class="w-px h-6 bg-ancient-200 mx-1 self-center"></div>
-                <button type="button" onclick="insertRichTag('${ta}','caption')" class="w-8 h-8 flex items-center justify-center text-ancient-600 hover:bg-white hover:text-ancient-900 rounded transition-colors" title="Caption (for highlighted text)"><i class="fa-solid fa-closed-captioning"></i></button>
-                <button type="button" onclick="insertRichTag('${ta}','image')" class="px-3 h-8 flex items-center justify-center text-ancient-600 bg-white border border-ancient-200 hover:border-ancient-400 hover:text-ancient-900 rounded transition-colors text-xs gap-2 shadow-sm" title="Insert image (with optional caption)"><i class="fa-regular fa-image"></i> Image</button>
-            </div>`;
-
-        // Fill every [data-rich-toolbar] placeholder with the shared toolbar (idempotent).
-        window.mountToolbars = () => {
-            document.querySelectorAll('[data-rich-toolbar]').forEach(el => {
-                const ta = el.getAttribute('data-rich-toolbar');
-                if (ta) el.innerHTML = window.richToolbarHTML(ta);
-            });
-        };
-
-        // --- ABOUT & ARTICLE MODALS ---
-        window.openAboutModal = () => {
-            const m = document.getElementById('aboutModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Lock background scrolling
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        }
-        window.closeAboutModal = () => {
-            const m = document.getElementById('aboutModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = ''; // Restore background scrolling
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        window.currentArticleId = null;
-
-        window.openArticleModal = (postId) => {
-            const post = window.blogPosts.find(p => p.id === postId);
-            if(!post) return;
-            window.currentArticleId = post.id;
-            // Sync URL slug for deep-linking (without re-triggering the router)
-            history.replaceState(null, '', '#/blog/' + (post.slug || post.id));
-
-            document.getElementById('articleTitle').innerText = post.title;
-            document.getElementById('articleDate').innerText = post.date || new Date().toLocaleDateString();
-
-            // Rich-text render + closing ornament
-            document.getElementById('articleContent').innerHTML = window.renderRichText(post.content) + window.endOrnament();
-
-            const wrap = document.getElementById('articleImageWrap');
-            const img = document.getElementById('articleImage');
-            if(post.url) { img.src = post.url; wrap.style.display = 'block'; }
-            else { wrap.style.display = 'none'; }
-
-            const editBtn = document.getElementById('articleEditBtn');
-            if (editBtn) editBtn.classList.toggle('hidden', !window.isAdmin);
-
-            window.renderBlogSidebar(post.id);
-
-            const m = document.getElementById('articleModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        }
-
-        window.renderBlogSidebar = (activeId = window.currentArticleId) => {
-            const listEl = document.getElementById('blogSidebarList');
-            if (!listEl) return;
-            const items = window.blogPosts || [];
-            if (items.length === 0) {
-                listEl.innerHTML = `<div class="p-6 text-center text-ancient-400 italic text-sm">No blog posts yet.${window.isAdmin ? '<br><br>Use “New” above to add the first one.' : ''}</div>`;
-                return;
-            }
-            listEl.innerHTML = items.map((b) => {
-                const active = (b.id === activeId);
-                return `
-                <div onclick="window.location.hash = '#/blog/${b.slug || b.id}'" class="group relative p-3 rounded border cursor-pointer transition-all ${active ? 'bg-white border-ancient-400 shadow-sm' : 'bg-white/60 border-ancient-100 hover:bg-white hover:border-ancient-200'}">
-                    <div class="flex gap-3 items-center">
-                        <div class="w-14 h-14 shrink-0 rounded bg-ancient-200 overflow-hidden">${b.url ? `<img src="${b.url}" class="w-full h-full object-cover ${active ? '' : 'sepia-[0.3] group-hover:sepia-0'} transition-all">` : ''}</div>
-                        <div class="min-w-0">
-                            <h4 class="font-heading text-base leading-tight text-ancient-900 truncate ${active ? '' : 'group-hover:text-ancient-600'} transition-colors">${b.title || 'Untitled'}</h4>
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mt-1 truncate">${(b.date && b.date.trim()) ? b.date : 'Blog post'}</p>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        };
-
-        window.editViewedArticle = () => {
-            if (window.currentArticleId) window.openBlogEditModal(window.currentArticleId);
-        };
-
-        window.executeCloseArticleModal = () => {
-            const m = document.getElementById('articleModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = ''; 
-            setTimeout(() => m.classList.add('hidden'), 300);
-        };
-
-        window.closeArticleModal = () => {
-            window.location.hash = '#/blog';
-        };
-
-        window.saveCMSContent = async () => {
-            const docId = document.getElementById('cmsDocId').value;
-            const titleVal = document.getElementById('cmsTitleInput').value;
-            const dateVal = document.getElementById('cmsDateInput').value.trim();
-            const isFeaturedColl = docId.startsWith('featured_');
-            const usesDate = (docId === 'featured' || isFeaturedColl || docId.startsWith('blog_'));
-
-            const payload = { 
-                title: titleVal, 
-                slug: document.getElementById('cmsSlugInput').value.trim() || window.generateSlug(titleVal), // Added slug handling
-                url: document.getElementById('cmsImgUrl').value, 
-                desc: document.getElementById('cmsDescInput').value 
-            };
-            if (usesDate) payload.date = dateVal; // manual date for featured/blog only
-            
-            if(db) {
-                if(docId.startsWith('blog_')) {
-                    const id = docId === 'blog_new' ? Date.now().toString() : docId.replace('blog_','');
-                    await setDoc(doc(db, "blog_posts", id), { ...payload, content: payload.desc, date: dateVal || new Date().toLocaleDateString() });
-                } else if (isFeaturedColl) {
-                    const isNew = (docId === 'featured_new');
-                    const id = isNew ? Date.now().toString() : docId.slice(9);
-                    if (isNew) {
-                        // New record: stamp createdAt so "most recent" ordering is deterministic
-                        await setDoc(doc(db, "featured_objects", id), { ...payload, createdAt: serverTimestamp() });
-                    } else {
-                        // Edit: merge so the original createdAt is preserved
-                        await setDoc(doc(db, "featured_objects", id), payload, { merge: true });
-                    }
-                } else {
-                    await setDoc(doc(db, "site_content", docId), payload);
-                }
-            } else {
-                // Mock mode (no Firebase): keep the in-memory stores in sync for preview
-                if (isFeaturedColl) {
-                    const id = (docId === 'featured_new') ? 'mock_feat_' + Date.now() : docId.slice(9);
-                    const idx = window.featuredObjects.findIndex(x => x.id === id);
-                    const createdAt = idx > -1 ? window.featuredObjects[idx].createdAt : Date.now();
-                    const obj = { id, ...payload, createdAt };
-                    if (idx > -1) window.featuredObjects[idx] = obj; else window.featuredObjects.push(obj);
-                    window.featuredObjects.sort((a, b) => window.tsOf(b) - window.tsOf(a));
-                    window.renderSiteData();
-                    if (!document.getElementById('featuredModal').classList.contains('hidden')) window.renderFeaturedSidebar();
-                } else {
-                    window.siteContent[docId] = payload; window.renderSiteData();
-                }
-            }
-            window.closeCMSModal();
-        }
-
-        // --- FEATURED OBJECTS (collection) READING MODAL with left-hand sidebar ---
-        // Returns the legacy singleton as a pseudo-record when the collection is empty
-        window.legacyFeatured = () => {
-            const lf = window.siteContent && window.siteContent.featured;
-            if (lf && (lf.title || lf.desc || lf.url)) return { id: 'legacy', ...lf };
-            return null;
-        };
-
-        window.openFeaturedModal = (id = null) => {
-            const list = window.sortedFeatured();
-            let target = null;
-            if (id) target = list.find(x => x.slug === id || x.id === id) || null;
-            if (!target) target = list[0] || window.legacyFeatured() || null;
-
-            window.currentFeaturedId = target ? target.id : null;
-            // Keep the URL in sync for deep-linking (without re-triggering the router)
-            if (target && target.id !== 'legacy') history.replaceState(null, '', '#/featured/' + (target.slug || target.id));
-            else history.replaceState(null, '', '#/featured');
-
-            window.renderFeaturedSidebar();
-            window.renderFeaturedMain(target);
-
-            const m = document.getElementById('featuredModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        };
-
-        window.renderFeaturedSidebar = () => {
-            const listEl = document.getElementById('featuredSidebarList');
-            if (!listEl) return;
-            let items = window.sortedFeatured();
-            if (items.length === 0) { const lf = window.legacyFeatured(); if (lf) items = [lf]; }
-
-            if (items.length === 0) {
-                listEl.innerHTML = `<div class="p-6 text-center text-ancient-400 italic text-sm">No featured objects yet.${window.isAdmin ? '<br><br>Use “New Featured” above to add the first one.' : ''}</div>`;
-                return;
-            }
-            listEl.innerHTML = items.map((f, i) => {
-                const active = (f.id === window.currentFeaturedId);
-                return `
-                <div onclick="selectFeatured('${f.id === 'legacy' ? 'legacy' : (f.slug || f.id)}')" class="group relative p-3 rounded border cursor-pointer transition-all ${active ? 'bg-white border-ancient-400 shadow-sm' : 'bg-white/60 border-ancient-100 hover:bg-white hover:border-ancient-200'}">
-                    <div class="flex gap-3 items-center">
-                        <div class="w-14 h-14 shrink-0 rounded bg-ancient-200 overflow-hidden">${f.url ? `<img src="${f.url}" class="w-full h-full object-cover ${active ? '' : 'sepia-[0.3] group-hover:sepia-0'} transition-all">` : ''}</div>
-                        <div class="min-w-0">
-                            <h4 class="font-heading text-base leading-tight text-ancient-900 truncate ${active ? '' : 'group-hover:text-ancient-600'} transition-colors">${f.title || 'Untitled'}</h4>
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mt-1 truncate">${i === 0 && f.id !== 'legacy' ? 'Current · ' : ''}${(f.date && f.date.trim()) ? f.date : 'Featured object'}</p>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        };
-
-        window.renderFeaturedMain = (obj) => {
-            const body = document.getElementById('featuredMainBody');
-            const editBtn = document.getElementById('featuredEditBtn');
-            if (!obj) {
-                body.innerHTML = `<div class="text-center py-24"><h1 class="font-heading text-4xl text-ancient-900 mb-4">No Featured Object</h1><p class="font-body text-ancient-600">${window.isAdmin ? 'Click “New Featured” in the panel to add one.' : 'Nothing has been featured yet.'}</p></div>`;
-                if (editBtn) editBtn.classList.add('hidden');
-                return;
-            }
-            if (editBtn) editBtn.classList.toggle('hidden', !window.isAdmin);
-            body.innerHTML = `
-                <span class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3 block">${(obj.date && obj.date.trim()) ? obj.date : 'Featured Object'}</span>
-                <h1 class="font-heading text-5xl md:text-6xl text-ancient-900 mb-8 leading-tight">${obj.title || 'Untitled'}</h1>
-                ${obj.url ? `<div class="w-full aspect-[21/9] bg-ancient-100 mb-12 rounded overflow-hidden shadow-sm"><img src="${obj.url}" class="w-full h-full object-cover"></div>` : ''}
-                <div class="font-body text-xl text-ancient-800 leading-relaxed space-y-6">${window.renderRichText(obj.desc || '')}</div>
-                ${window.endOrnament()}
-            `;
-        };
-
-        window.selectFeatured = (idOrSlug) => { window.openFeaturedModal(idOrSlug); };
-
-        window.executeCloseFeaturedModal = () => {
-            const m = document.getElementById('featuredModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => m.classList.add('hidden'), 300);
-        };
-        window.closeFeaturedModal = () => { window.location.hash = '#/project'; };
-
-        // Edit affordances
-        window.editCurrentFeatured = () => {
-            const newest = window.sortedFeatured()[0];
-            if (newest) window.openCMSModal('featured_' + newest.id);
-            else if (window.legacyFeatured()) window.openCMSModal('featured'); // edit existing single record
-            else window.openCMSModal('featured_new');
-        };
-        window.editViewedFeatured = () => {
-            if (window.currentFeaturedId === 'legacy') window.openCMSModal('featured');
-            else if (window.currentFeaturedId) window.openCMSModal('featured_' + window.currentFeaturedId);
-            else window.openCMSModal('featured_new');
-        };
-        window.openFeaturedEditModal = (id = null) => window.openCMSModal(id ? 'featured_' + id : 'featured_new');
-
-    // --- BLOG EDITOR LOGIC ---
-        window.openBlogEditModal = (id = null) => {
-            const isNew = !id;
-            document.getElementById('blogEditId').value = isNew ? '' : id;
-            document.getElementById('blogEditHeader').innerText = isNew ? 'New Blog Post' : 'Edit Blog Post';
-            
-            const btnDelete = document.getElementById('btnDeleteBlog');
-            if(isNew) {
-                btnDelete.classList.add('hidden');
-                document.getElementById('blogEditTitle').value = '';
-                document.getElementById('blogEditSlug').value = ''; // Added
-                document.getElementById('blogEditImgUrl').value = '';
-                document.getElementById('blogEditDate').value = '';
-                document.getElementById('blogEditDesc').value = '';
-            } else {
-                btnDelete.classList.remove('hidden');
-                const post = window.blogPosts.find(p => p.id === id) || {};
-                document.getElementById('blogEditTitle').value = post.title || '';
-                document.getElementById('blogEditSlug').value = post.slug || ''; // Added
-                document.getElementById('blogEditImgUrl').value = post.url || '';
-                document.getElementById('blogEditDate').value = post.date || '';
-                document.getElementById('blogEditDesc').value = post.content || '';
-            }
-            
-            const m = document.getElementById('blogEditModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        };
-
-        window.closeBlogEditModal = () => {
-            const m = document.getElementById('blogEditModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        // These three now delegate to the unified inserter so every editor shares the same toolbar.
-        window.insertBlogFormatTag = (tagType) => window.insertRichTag('blogEditDesc', tagType);
-        window.insertCMSFormatTag = (tagType) => window.insertRichTag('cmsDescInput', tagType);
-
-        window.saveBlogContent = async () => {
-            const idVal = document.getElementById('blogEditId').value;
-            const titleVal = document.getElementById('blogEditTitle').value;
-            const slugVal = document.getElementById('blogEditSlug').value.trim() || window.generateSlug(titleVal); // Added
-
-            const payload = {
-                title: titleVal,
-                slug: slugVal, // Added
-                url: document.getElementById('blogEditImgUrl').value,
-                content: document.getElementById('blogEditDesc').value,
-                date: document.getElementById('blogEditDate').value.trim() || new Date().toLocaleDateString()
-            };
-            
-            if(db) {
-                const docId = idVal ? idVal : Date.now().toString();
-                await setDoc(doc(db, "blog_posts", docId), payload);
-            } else {
-                if(idVal) {
-                    const idx = window.blogPosts.findIndex(p => p.id === idVal);
-                    if(idx > -1) window.blogPosts[idx] = { id: idVal, ...payload };
-                } else {
-                    window.blogPosts.unshift({ id: 'mock_blog_' + Date.now(), ...payload });
-                }
-                window.renderSiteData();
-            }
-            window.closeBlogEditModal();
-        };
-
-        window.deleteBlogPost = async () => {
-            const idVal = document.getElementById('blogEditId').value;
-            if(!idVal) return;
-            if(confirm("Permanently delete this post?")) {
-                if(db) {
-                    await deleteDoc(doc(db, "blog_posts", idVal));
-                } else {
-                    window.blogPosts = window.blogPosts.filter(p => p.id !== idVal);
-                    window.renderSiteData();
-                }
-                window.closeBlogEditModal();
-            }
-        }
-
-    // --- UPCOMING EVENTS LOGIC ---
-        // NB: events are ordered newest-created-first (createdAt). The free-text `date`
-        // field is not machine-parseable, so it is shown verbatim and NOT used for sorting.
-        window.sortedEvents = () => [...(window.events || [])].sort((a, b) => window.tsOf(b) - window.tsOf(a));
-
-        window.renderUpcomingTile = () => {
-            const listEl = document.getElementById('upcomingEventsList');
-            if (!listEl) return;
-            const items = window.sortedEvents();
-            if (items.length === 0) {
-                listEl.innerHTML = `<div class="py-6 text-ancient-400 italic text-sm">No upcoming events listed.${window.isAdmin ? ' Use “New event” to add one.' : ''}</div>`;
-                return;
-            }
-            listEl.innerHTML = items.map(e => `
-                <div onclick="window.location.hash = '#/event/${e.slug || e.id}'" class="group flex items-baseline gap-6 py-4 cursor-pointer">
-                    <div class="w-40 shrink-0 font-subheading italic text-ancient-500 text-lg leading-tight">${(e.date && e.date.trim()) ? e.date : 'Date TBC'}</div>
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-heading text-2xl text-ancient-900 leading-tight group-hover:text-ancient-600 transition-colors">${e.title || 'Untitled event'}</h4>
-                    </div>
-                    <i class="fa-solid fa-arrow-right text-ancient-300 group-hover:text-ancient-700 group-hover:translate-x-1 transition-all self-center"></i>
-                </div>`).join('');
-        };
-
-        window.openEventModal = (idOrSlug = null) => {
-            const list = window.sortedEvents();
-            let target = null;
-            if (idOrSlug) target = list.find(x => x.slug === idOrSlug || x.id === idOrSlug) || null;
-            if (!target) target = list[0] || null;
-
-            window.currentEventId = target ? target.id : null;
-            if (target) history.replaceState(null, '', '#/event/' + (target.slug || target.id));
-            else history.replaceState(null, '', '#/event');
-
-            window.renderEventSidebar(window.currentEventId);
-
-            const titleEl = document.getElementById('eventTitle');
-            const dateEl = document.getElementById('eventDate');
-            const wrap = document.getElementById('eventImageWrap');
-            const img = document.getElementById('eventImage');
-            const content = document.getElementById('eventContent');
-            const editBtn = document.getElementById('eventEditBtn');
-
-            if (!target) {
-                titleEl.innerText = 'No upcoming events';
-                dateEl.innerText = '';
-                wrap.style.display = 'none';
-                content.innerHTML = `<p class="text-ancient-500 italic">${window.isAdmin ? 'Use “New” in the panel to add the first event.' : 'Nothing has been scheduled yet.'}</p>`;
-                if (editBtn) editBtn.classList.add('hidden');
-            } else {
-                titleEl.innerText = target.title || 'Untitled event';
-                dateEl.innerText = (target.date && target.date.trim()) ? target.date : 'Upcoming event';
-                if (target.url) { img.src = target.url; wrap.style.display = 'block'; }
-                else { wrap.style.display = 'none'; }
-                content.innerHTML = window.renderRichText(target.desc || '') + window.endOrnament();
-                if (editBtn) editBtn.classList.toggle('hidden', !window.isAdmin);
-            }
-
-            const m = document.getElementById('eventModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        };
-
-        window.renderEventSidebar = (activeId = window.currentEventId) => {
-            const listEl = document.getElementById('eventSidebarList');
-            if (!listEl) return;
-            const items = window.sortedEvents();
-            if (items.length === 0) {
-                listEl.innerHTML = `<div class="p-6 text-center text-ancient-400 italic text-sm">No upcoming events yet.${window.isAdmin ? '<br><br>Use “New” above to add the first one.' : ''}</div>`;
-                return;
-            }
-            listEl.innerHTML = items.map(e => {
-                const active = (e.id === activeId);
-                return `
-                <div onclick="window.location.hash = '#/event/${e.slug || e.id}'" class="group relative p-3 rounded border cursor-pointer transition-all ${active ? 'bg-white border-ancient-400 shadow-sm' : 'bg-white/60 border-ancient-100 hover:bg-white hover:border-ancient-200'}">
-                    <div class="flex gap-3 items-center">
-                        <div class="w-14 h-14 shrink-0 rounded bg-ancient-200 overflow-hidden flex items-center justify-center text-ancient-400">${e.url ? `<img src="${e.url}" class="w-full h-full object-cover ${active ? '' : 'sepia-[0.3] group-hover:sepia-0'} transition-all">` : '<i class="fa-regular fa-calendar"></i>'}</div>
-                        <div class="min-w-0">
-                            <h4 class="font-heading text-base leading-tight text-ancient-900 truncate ${active ? '' : 'group-hover:text-ancient-600'} transition-colors">${e.title || 'Untitled'}</h4>
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mt-1 truncate">${(e.date && e.date.trim()) ? e.date : 'Date TBC'}</p>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        };
-
-        window.editViewedEvent = () => {
-            if (window.currentEventId) window.openEventEditModal(window.currentEventId);
-        };
-
-        window.executeCloseEventModal = () => {
-            const m = document.getElementById('eventModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => m.classList.add('hidden'), 300);
-        };
-        window.closeEventModal = () => { window.location.hash = '#/project'; };
-
-        // Event editor (create / edit)
-        window.openEventEditModal = (id = null) => {
-            const isNew = !id;
-            document.getElementById('eventEditId').value = isNew ? '' : id;
-            document.getElementById('eventEditHeader').innerText = isNew ? 'New Event' : 'Edit Event';
-            const btnDelete = document.getElementById('btnDeleteEvent');
-            if (isNew) {
-                btnDelete.classList.add('hidden');
-                document.getElementById('eventEditTitle').value = '';
-                document.getElementById('eventEditSlug').value = '';
-                document.getElementById('eventEditImgUrl').value = '';
-                document.getElementById('eventEditDate').value = '';
-                document.getElementById('eventEditDesc').value = '';
-            } else {
-                btnDelete.classList.remove('hidden');
-                const ev = (window.events || []).find(x => x.id === id) || {};
-                document.getElementById('eventEditTitle').value = ev.title || '';
-                document.getElementById('eventEditSlug').value = ev.slug || '';
-                document.getElementById('eventEditImgUrl').value = ev.url || '';
-                document.getElementById('eventEditDate').value = ev.date || '';
-                document.getElementById('eventEditDesc').value = ev.desc || '';
-            }
-            const m = document.getElementById('eventEditModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        };
-
-        window.closeEventEditModal = () => {
-            const m = document.getElementById('eventEditModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => m.classList.add('hidden'), 300);
-        };
-
-        window.saveEventContent = async () => {
-            const idVal = document.getElementById('eventEditId').value;
-            const titleVal = document.getElementById('eventEditTitle').value;
-            const slugVal = document.getElementById('eventEditSlug').value.trim() || window.generateSlug(titleVal);
-            const payload = {
-                title: titleVal,
-                slug: slugVal,
-                url: document.getElementById('eventEditImgUrl').value,
-                desc: document.getElementById('eventEditDesc').value,
-                date: document.getElementById('eventEditDate').value.trim()
-            };
-            if (db) {
-                if (idVal) {
-                    await updateDoc(doc(db, "events", idVal), payload);
-                } else {
-                    await addDoc(collection(db, "events"), { ...payload, createdAt: serverTimestamp() });
-                }
-            } else {
-                if (idVal) {
-                    const idx = window.events.findIndex(e => e.id === idVal);
-                    if (idx > -1) window.events[idx] = { ...window.events[idx], ...payload };
-                } else {
-                    window.events.unshift({ id: 'mock_evt_' + Date.now(), ...payload, createdAt: Date.now() });
-                }
-                window.events.sort((a, b) => window.tsOf(b) - window.tsOf(a));
-                window.renderUpcomingTile();
-                if (!document.getElementById('eventModal').classList.contains('hidden')) window.renderEventSidebar(window.currentEventId);
-            }
-            window.closeEventEditModal();
-        };
-
-        window.deleteEvent = async () => {
-            const idVal = document.getElementById('eventEditId').value;
-            if (!idVal) return;
-            if (confirm("Permanently delete this event?")) {
-                if (db) {
-                    await deleteDoc(doc(db, "events", idVal));
-                } else {
-                    window.events = window.events.filter(e => e.id !== idVal);
-                    window.renderUpcomingTile();
-                }
-                window.closeEventEditModal();
-            }
-        };
-
-    // --- ABOUT PROJECT EDITOR LOGIC ---
-    window.openAboutEditModal = () => {
-            const data = window.siteContent['about'] || {};
-            document.getElementById('aboutEditTitle').value = data.title || 'About the project';
-            document.getElementById('aboutEditDesc').value = data.desc || 'Egypt during the Hellenistic and Roman periods presents an extraordinary potential to explore the intersection of macro-historical forces with everyday social and economic life.';
-            
-            const m = document.getElementById('aboutEditModal');
-            m.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        }
-
-        window.closeAboutEditModal = () => {
-            const m = document.getElementById('aboutEditModal');
-            m.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        window.insertFormatTag = (tagType) => window.insertRichTag('aboutEditDesc', tagType);
-
-        window.saveAboutContent = async () => {
-            const payload = {
-                title: document.getElementById('aboutEditTitle').value,
-                desc: document.getElementById('aboutEditDesc').value
-            };
-            
-            if(db) {
-                await setDoc(doc(db, "site_content", "about"), payload);
-            } else {
-                window.siteContent['about'] = payload;
-                window.renderSiteData();
-            }
-            window.closeAboutEditModal();
-        }
-
-
-        // --- EDITOR MODAL DB LOGIC ---
-        window.openEditModal = (id = null) => {
-            document.getElementById('locationList').innerHTML = '';
-            document.getElementById('sourceLinkList').innerHTML = '';
-            // Hint if there are no sources to link yet
-            document.getElementById('noSourcesHint').classList.toggle('hidden', (window.sources || []).length > 0);
-            
-            if (id) {
-                const f = window.festivals.find(x => x.id === id);
-                if (!f) return;
-                document.getElementById('modalTitle').innerText = 'Edit Entry';
-                document.getElementById('inpId').value = f.id;
-                document.getElementById('displayId').innerText = f.id; // Added
-                document.getElementById('inpSlug').value = f.slug || ''; // Added
-                
-                const fields = ['Name', 'Variants', 'Trismegistos', 'Type', 'Subtype', 'Status', 'Freq', 'Dur', 'AttestedSince', 'AttestedUntil', 'Dates', 'Contests', 'Rituals', 'Buildings', 'Desc', 'Persons', 'Biblio'];
-                fields.forEach(k => {
-                    const el = document.getElementById('inp' + k);
-                    if (el) el.value = f[k.charAt(0).toLowerCase() + k.slice(1)] || '';
-                });
-                
-                document.getElementById('inpDeities').value = (f.deities || []).join(', ');
-                document.getElementById('inpTags').value = (f.tags || []).join(', ');
-                
-                if (f.locations) f.locations.forEach(l => window.addLocationInput(l.name, l.lat, l.lng));
-                (f.sources || []).forEach(sid => window.addSourceLinkInput(sid));
-            } else {
-                document.getElementById('modalTitle').innerText = 'New Entry';
-                document.getElementById('editForm').reset();
-                document.getElementById('inpId').value = '';
-                document.getElementById('displayId').innerText = 'Auto-generated on save'; // Added
-                document.getElementById('inpSlug').value = ''; // Added
-                window.addLocationInput();
-            }
-            document.getElementById('editModal').classList.remove('hidden');
-        };
-
-        // Build a <select> row populated with every catalogued source
-        window.addSourceLinkInput = (selectedId='') => {
-            const div = document.createElement('div');
-            div.className = "flex gap-4 items-center source-link-row bg-white border border-ancient-200 p-2 rounded shadow-sm";
-            const opts = (window.sources || []).map(s =>
-                `<option value="${s.id}" ${s.id === selectedId ? 'selected' : ''}>${(s.name || 'Untitled').replace(/"/g,'&quot;')}</option>`
-            ).join('');
-            div.innerHTML = `
-                <select class="src-link flex-1 border border-ancient-200 rounded py-2 px-3 text-sm bg-white focus:outline-none focus:border-ancient-400">
-                    <option value="">— Select a source —</option>
-                    ${opts}
-                </select>
-                <button type="button" onclick="this.parentElement.remove()" class="text-ancient-400 hover:text-[#D9534F] px-2 transition-colors"><i class="fa-solid fa-trash"></i></button>
-            `;
-            document.getElementById('sourceLinkList').appendChild(div);
-        };
-
-        window.closeEditModal = () => document.getElementById('editModal').classList.add('hidden');
-
-        window.addLocationInput = (n='', lat='', lng='') => {
-            const div = document.createElement('div');
-            div.className = "flex gap-4 items-center mb-3 location-row bg-white border border-ancient-200 p-2 rounded shadow-sm";
-            div.innerHTML = `
-                <input type="text" placeholder="Place Name" class="loc-name w-1/2 border border-ancient-200 rounded py-2 px-3 text-sm focus:outline-none focus:border-ancient-400" value="${n}">
-                <input type="number" placeholder="Lat" step="0.0001" class="loc-lat w-1/4 border border-ancient-200 rounded py-2 px-3 text-sm focus:outline-none focus:border-ancient-400" value="${lat}">
-                <input type="number" placeholder="Lng" step="0.0001" class="loc-lng w-1/4 border border-ancient-200 rounded py-2 px-3 text-sm focus:outline-none focus:border-ancient-400" value="${lng}">
-                <button type="button" onclick="this.parentElement.remove()" class="text-ancient-400 hover:text-[#D9534F] px-2 transition-colors"><i class="fa-solid fa-trash"></i></button>
-            `;
-            document.getElementById('locationList').appendChild(div);
-        }
-
-        window.saveRecord = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('inpId').value;
-            const rawName = document.getElementById('inpName').value;
-            // Generate slug automatically if left blank
-            const slug = document.getElementById('inpSlug').value.trim() || window.generateSlug(rawName);
-
-            const locs = Array.from(document.querySelectorAll('.location-row')).map(r => ({
-                name: r.querySelector('.loc-name').value, lat: parseFloat(r.querySelector('.loc-lat').value) || null, lng: parseFloat(r.querySelector('.loc-lng').value) || null
-            })).filter(l => l.name);
-
-            // Linked source doc-IDs (de-duplicated, blanks removed)
-            const srcIds = [...new Set(Array.from(document.querySelectorAll('.src-link')).map(s => s.value).filter(Boolean))];
-
-            const payload = {
-                name: rawName,
-                slug: slug, // Added
-                variants: document.getElementById('inpVariants').value,
-                type: document.getElementById('inpType').value,
-                subtype: document.getElementById('inpSubtype').value,
-                status: document.getElementById('inpStatus').value,
-                frequency: document.getElementById('inpFreq').value,
-                duration: document.getElementById('inpDur').value,
-                attestedSince: document.getElementById('inpAttestedSince').value,
-                attestedUntil: document.getElementById('inpAttestedUntil').value,
-                dates: document.getElementById('inpDates').value,
-                contests: document.getElementById('inpContests').value,
-                rituals: document.getElementById('inpRituals').value,
-                buildings: document.getElementById('inpBuildings').value,
-                description: document.getElementById('inpDesc').value,
-                persons: document.getElementById('inpPersons').value,
-                biblio: document.getElementById('inpBiblio').value,
-                trismegistos: document.getElementById('inpTrismegistos').value,
-                deities: document.getElementById('inpDeities').value.split(',').map(s=>s.trim()).filter(Boolean),
-                tags: document.getElementById('inpTags').value.split(',').map(s=>s.trim()).filter(Boolean),
-                locations: locs,
-                sources: srcIds
-            };
-
-            try {
-                if (db) {
-                    if (id) await updateDoc(doc(db, "festivals", id), payload); else await addDoc(collection(db, "festivals"), payload);
-                } else {
-                    if (id) { const idx = window.festivals.findIndex(f => f.id === id); if (idx > -1) window.festivals[idx] = { id, ...payload }; } 
-                    else window.festivals.push({ id: "mock_" + Date.now(), ...payload });
-                    window.renderAll();
-                }
-                window.closeEditModal();
-                if(window.activeDbView === 'grid' || window.activeDbView === 'table') window.switchDbView(window.activeDbView);
-            } catch (err) { alert("Failed to save entry. Check console."); console.error(err); }
-        };
-
-        window.deleteRecord = async (id) => {
-            if (!id) return;
-            if (confirm("Are you sure you want to permanently delete this record?")) {
-                if (db) await deleteDoc(doc(db, "festivals", id));
-                else { window.festivals = window.festivals.filter(f => f.id !== id); window.renderAll(); }
-                window.closeEditModal(); window.closeDetailModal();
-            }
-        }
-        window.downloadBackup = () => {
-    // 1. Check if there is data to export
-    if (!window.festivals || window.festivals.length === 0) {
-        alert("No database entries available to export.");
-        return;
-    }
-
-    // 2. Convert the local array to a beautifully formatted JSON string
-    // The '2' adds indentation for human readability
-    const dataString = JSON.stringify(window.festivals, null, 2);
-    
-    // 3. Create a Blob object representing the data as a JSON file
-    const blob = new Blob([dataString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    
-    // 4. Create a temporary anchor element to trigger the download
-    const downloadLink = document.createElement("a");
-    downloadLink.href = url;
-    
-    // 5. Generate a dynamic filename with today's date for version control
-    const dateStr = new Date().toISOString().split('T')[0];
-    downloadLink.download = `festivals_db_backup_${dateStr}.json`;
-    
-    // 6. Append, click, and clean up
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-    URL.revokeObjectURL(url); // Free up memory
-};
-
-        // --- SEARCH, MAP & DATABASE UI LOGIC ---
-        window.setupSearchListeners = () => {
-            const performSearch = () => {
-                const q = document.getElementById('searchInput').value.toLowerCase();
-                const dQ = document.getElementById('advDeity').value.toLowerCase();
-                const tQ = document.getElementById('advTime').value.toLowerCase();
-                const sQ = document.getElementById('advStatus').value.toLowerCase();
-
-                if (!q && !dQ && !tQ && !sQ) { window.closeSearchPanel(); window.clearMapHighlights(); return; }
-
-                const results = window.festivals.filter(f => {
-                    const textMatch = !q || [f.name, f.variants, f.description, (f.tags||[]).join(' '), (f.locations||[]).map(l=>l.name).join(' ')].some(txt => txt && txt.toLowerCase().includes(q));
-                    const deityMatch = !dQ || (f.deities||[]).some(d => d.toLowerCase().includes(dQ));
-                    const timeMatch = !tQ || (f.attestedSince && f.attestedSince.toLowerCase().includes(tQ)) || (f.attestedUntil && f.attestedUntil.toLowerCase().includes(tQ));
-                    const statusMatch = !sQ || (f.status && f.status.toLowerCase().includes(sQ)) || (f.tags||[]).some(t => t.toLowerCase().includes(sQ));
-                    return textMatch && deityMatch && timeMatch && statusMatch;
-                });
-                
-                window.renderSearchResults(results); window.highlightMapForResults(results, q);
-            };
-            ['searchInput', 'advDeity', 'advTime', 'advStatus'].forEach(id => document.getElementById(id).addEventListener('input', performSearch));
-        };
-
-        window.renderSearchResults = (results) => {
-            const panel = document.getElementById('searchResultsPanel');
-            const list = document.getElementById('searchResultsList');
-            document.getElementById('resultCount').innerText = results.length;
-            list.innerHTML = '';
-
-            if (results.length > 0) {
-                panel.classList.remove('-translate-x-[120%]', 'opacity-0');
-                results.forEach(f => {
-                    const div = document.createElement('div');
-                    div.className = "p-3 bg-white/80 hover:bg-white rounded border border-ancient-100 cursor-pointer transition-colors shadow-sm mb-2";
-                    div.onclick = () => { window.openDetailModal(f.id, true); window.zoomToLocation(f); };
-                    div.innerHTML = `<div class="flex justify-between items-start"><h4 class="font-heading text-ancient-900 font-bold leading-tight">${f.name}</h4><span class="text-[10px] bg-ancient-100 text-ancient-600 px-1.5 rounded uppercase">${f.type || 'Fest'}</span></div>
-                        <p class="text-xs text-ancient-500 font-greek truncate mt-1">${f.variants || ''}</p>
-                        <div class="mt-2 flex gap-2 text-[9px] text-ancient-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-map-pin"></i> ${(f.locations && f.locations[0]?.name) || 'Unknown'}</div>`;
-                    list.appendChild(div);
-                });
-            } else {
-                list.innerHTML = `<div class="p-4 text-center text-ancient-400 italic text-sm">No matches found.</div>`;
-                panel.classList.remove('-translate-x-[120%]', 'opacity-0');
-            }
-        };
-
-        window.toggleAdvSearch = () => { const p=document.getElementById('advSearchPanel'); p.classList.toggle('hidden'); p.classList.toggle('flex'); }
-        window.closeSearchPanel = () => document.getElementById('searchResultsPanel').classList.add('-translate-x-[120%]', 'opacity-0');
-
-        window.initMap = () => {
-            if(!window.map) {
-                window.map = L.map('map', { zoomControl: false }).setView([29.0, 31.0], 6);
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(window.map);
-            }
-        };
-        
-        window.zoomToLocation = (f) => { if (f.locations?.length > 0 && f.locations[0].lat) window.map.flyTo([f.locations[0].lat, f.locations[0].lng], 9, { animate: true, duration: 1 }); }
-        
-        window.renderMapMarkers = () => {
-            window.markers.forEach(m => window.map.removeLayer(m)); window.markers = [];
-            if (!window.isMapVisible) return;
-            const groups = {};
-            window.festivals.forEach(f => {
-                (f.locations||[]).forEach(loc => { if (loc.lat) { const k=`${loc.lat},${loc.lng}`; if(!groups[k]) groups[k]={...loc, items:[]}; groups[k].items.push(f); } });
-            });
-            Object.values(groups).forEach(g => {
-                const m = L.circleMarker([g.lat, g.lng], { color: '#8C7355', fillColor: '#F9F7F2', fillOpacity: 1, radius: 8, weight: 2 }).addTo(window.map);
-                m.groupName = g.name;
-                m.bindPopup(`<div class='font-body text-center p-2'><div class='font-bold text-[10px] uppercase'>${g.name}</div>${g.items.map(i=>`<div onclick="window.location.hash = '#/festival/${i.slug || i.id}'" class="cursor-pointer font-heading text-lg hover:underline">${i.name}</div>`).join('')}</div>`);
-                m.on('mouseover', function(){this.openPopup()}); window.markers.push(m);
-            });
-        };
-
-        window.clearMapHighlights = () => window.markers.forEach(m => { if(m.getElement()) m.getElement().classList.remove('marker-highlight'); m.setStyle({color: '#8C7355'}); });
-        window.highlightMapForResults = (res, query) => {
-            window.clearMapHighlights();
-            if (res.length === 0) return;
-            const locs = new Set(); res.forEach(f => (f.locations||[]).forEach(l => locs.add(l.name)));
-            window.markers.forEach(m => { if(locs.has(m.groupName)) { if(m.getElement()) m.getElement().classList.add('marker-highlight'); m.setStyle({color: '#D9534F'}); } });
-        };
-
-        window.toggleMapVisibility = () => {
-            window.isMapVisible = !window.isMapVisible;
-            document.getElementById('map').style.opacity = window.isMapVisible ? '1' : '0';
-            const g = document.getElementById('viewGrid');
-            if(window.isMapVisible) { g.classList.add('bg-transparent', 'pointer-events-none'); g.classList.remove('bg-ancient-50', 'pointer-events-auto'); } 
-            else { g.classList.remove('bg-transparent', 'pointer-events-none'); g.classList.add('bg-ancient-50', 'pointer-events-auto'); }
-            window.syncMapToggleUI();
-            window.renderMapMarkers();
-        };
-
-        // Keep the sole bottom-left map action in sync with shared map state.
-        window.syncMapToggleUI = () => {
-            const floatTxt = document.getElementById('mapToggleText');
-            if (floatTxt) floatTxt.innerText = window.isMapVisible ? "Hide Map" : "Show Map";
-        };
-
-        window.activeDbView = 'map';
-        window.switchMode = (mode) => {
-            const lV = document.getElementById('landing-view'), dV = document.getElementById('database-view');
-            if(mode==='database'){ 
-                lV.style.display='none'; dV.classList.remove('hidden'); 
-                document.querySelectorAll('.nav-sub-link').forEach(e => e.classList.add('hidden'));
-                document.getElementById('nav-enter-db-btn').classList.add('hidden'); 
-                document.getElementById('nav-db-actions').classList.replace('hidden','flex'); 
-                document.getElementById('nav-db-title').classList.replace('hidden','flex'); 
-                document.getElementById('nav-db-search').classList.replace('hidden','flex'); 
-                window.initMap(); window.renderAll(); window.switchDbView('map'); 
-            }
-            else { 
-                lV.style.display='block'; dV.classList.add('hidden'); 
-                document.querySelectorAll('.nav-sub-link').forEach(e => e.classList.remove('hidden'));
-                document.getElementById('nav-enter-db-btn').classList.remove('hidden'); 
-                document.getElementById('nav-db-actions').classList.replace('flex','hidden'); 
-                document.getElementById('nav-db-title').classList.replace('flex','hidden'); 
-                document.getElementById('nav-db-search').classList.replace('flex','hidden'); 
-            }
-        };
-
-        window.initScrollObserver = () => { const o = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('active');}})); document.querySelectorAll('.reveal-up').forEach(el=>o.observe(el)); };
-
-        // ========================= LOCATION EDITOR =========================
-        window.openLocationEditModal = (id = null) => {
-            const l = id ? window.locations.find(x => x.id === id) : null;
-            document.getElementById('inpLocId').value = l ? l.id : '';
-            document.getElementById('displayLocId').innerText = l ? l.id : 'Auto-generated on save';
-            document.getElementById('locModalTitle').innerText = l ? 'Edit Location' : 'New Location';
-            document.getElementById('inpLocName').value = l ? (l.name || '') : '';
-            document.getElementById('inpLocVariants').value = l ? (l.variants || '') : '';
-            document.getElementById('inpLocSlug').value = l ? (l.slug || '') : '';
-            document.getElementById('inpLocType').value = l ? (l.type || '') : '';
-            document.getElementById('inpLocRegion').value = l ? (l.region || '') : '';
-            document.getElementById('inpLocModern').value = l ? (l.modern || '') : '';
-            document.getElementById('inpLocLat').value = l ? (l.lat ?? '') : '';
-            document.getElementById('inpLocLng').value = l ? (l.lng ?? '') : '';
-            document.getElementById('inpLocTM').value = l ? (l.trismegistos || '') : '';
-            document.getElementById('inpLocPleiades').value = l ? (l.pleiades || '') : '';
-            document.getElementById('inpLocDesc').value = l ? (l.description || '') : '';
-            document.getElementById('locationEditModal').classList.remove('hidden');
-        };
-        window.closeLocationEditModal = () => document.getElementById('locationEditModal').classList.add('hidden');
-        window.saveLocation = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('inpLocId').value;
-            const name = document.getElementById('inpLocName').value;
-            const payload = {
-                name,
-                slug: document.getElementById('inpLocSlug').value.trim() || window.generateSlug(name),
-                variants: document.getElementById('inpLocVariants').value,
-                type: document.getElementById('inpLocType').value,
-                region: document.getElementById('inpLocRegion').value,
-                modern: document.getElementById('inpLocModern').value,
-                lat: parseFloat(document.getElementById('inpLocLat').value) || null,
-                lng: parseFloat(document.getElementById('inpLocLng').value) || null,
-                trismegistos: document.getElementById('inpLocTM').value,
-                pleiades: document.getElementById('inpLocPleiades').value,
-                description: document.getElementById('inpLocDesc').value
-            };
-            try {
-                if (db) { if (id) await updateDoc(doc(db, "locations", id), payload); else await addDoc(collection(db, "locations"), payload); }
-                else { if (id) { const idx = window.locations.findIndex(x => x.id === id); if (idx > -1) window.locations[idx] = { id, ...payload }; } else window.locations.push({ id: "mock_loc_" + Date.now(), ...payload }); window.renderLocations(); }
-                window.closeLocationEditModal();
-            } catch (err) { alert("Failed to save location. Check console."); console.error(err); }
-        };
-        window.deleteLocation = async (id) => {
-            if (!id) return;
-            if (confirm("Permanently delete this location?")) {
-                if (db) await deleteDoc(doc(db, "locations", id));
-                else { window.locations = window.locations.filter(x => x.id !== id); window.renderLocations(); }
-                window.closeLocationEditModal(); window.executeCloseLocationDetail();
-            }
-        };
-
-        // ========================= SOURCE EDITOR =========================
-        window.openSourceEditModal = (id = null) => {
-            const s = id ? window.sources.find(x => x.id === id) : null;
-            document.getElementById('inpSrcId').value = s ? s.id : '';
-            document.getElementById('displaySrcId').innerText = s ? s.id : 'Auto-generated on save';
-            document.getElementById('srcModalTitle').innerText = s ? 'Edit Source' : 'New Source';
-            document.getElementById('inpSrcName').value = s ? (s.name || '') : '';
-            document.getElementById('inpSrcSlug').value = s ? (s.slug || '') : '';
-            document.getElementById('inpSrcType').value = s ? (s.type || '') : '';
-            document.getElementById('inpSrcLang').value = s ? (s.language || '') : '';
-            document.getElementById('inpSrcMaterial').value = s ? (s.material || '') : '';
-            document.getElementById('inpSrcDate').value = s ? (s.date || '') : '';
-            document.getElementById('inpSrcProvenance').value = s ? (s.provenance || '') : '';
-            document.getElementById('inpSrcTM').value = s ? (s.trismegistos || '') : '';
-            document.getElementById('inpSrcUrl').value = s ? (s.url || '') : '';
-            document.getElementById('inpSrcEdition').value = s ? (s.edition || '') : '';
-            document.getElementById('inpSrcDesc').value = s ? (s.description || '') : '';
-            document.getElementById('inpSrcTranslation').value = s ? (s.translation || '') : '';
-            document.getElementById('sourceEditModal').classList.remove('hidden');
-        };
-        window.closeSourceEditModal = () => document.getElementById('sourceEditModal').classList.add('hidden');
-        window.saveSource = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('inpSrcId').value;
-            const name = document.getElementById('inpSrcName').value;
-            const payload = {
-                name,
-                slug: document.getElementById('inpSrcSlug').value.trim() || window.generateSlug(name),
-                type: document.getElementById('inpSrcType').value,
-                language: document.getElementById('inpSrcLang').value,
-                material: document.getElementById('inpSrcMaterial').value,
-                date: document.getElementById('inpSrcDate').value,
-                provenance: document.getElementById('inpSrcProvenance').value,
-                trismegistos: document.getElementById('inpSrcTM').value,
-                url: document.getElementById('inpSrcUrl').value,
-                edition: document.getElementById('inpSrcEdition').value,
-                description: document.getElementById('inpSrcDesc').value,
-                translation: document.getElementById('inpSrcTranslation').value
-            };
-            try {
-                if (db) { if (id) await updateDoc(doc(db, "sources", id), payload); else await addDoc(collection(db, "sources"), payload); }
-                else { if (id) { const idx = window.sources.findIndex(x => x.id === id); if (idx > -1) window.sources[idx] = { id, ...payload }; } else window.sources.push({ id: "mock_src_" + Date.now(), ...payload }); window.renderSources(); }
-                window.closeSourceEditModal();
-            } catch (err) { alert("Failed to save source. Check console."); console.error(err); }
-        };
-        window.deleteSource = async (id) => {
-            if (!id) return;
-            if (confirm("Permanently delete this source? Festivals linking to it will simply drop the dead reference.")) {
-                if (db) await deleteDoc(doc(db, "sources", id));
-                else { window.sources = window.sources.filter(x => x.id !== id); window.renderSources(); }
-                window.closeSourceEditModal(); window.executeCloseSourceDetail();
-            }
-        };
-
-
-        // ================= UNIFIED DATABASE INTERFACE (2026 UI REVISION) =================
-        window.databaseUI = {
-            displayMode: 'grid',
-            primary: null,
-            secondary: null,
-            lastOriginPanel: 'primary'
-        };
-
-        window.escapeDbHtml = (value) => String(value ?? '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-
-        window.dbRouteForTab = () => {
-            if (window.activeDbView === 'sources') return '#/sources';
-            if (window.activeDbView === 'locations') return '#/locations';
-            return '#/database';
-        };
-
-        window.dbEntryRoute = (entry) => {
-            if (!entry) return window.dbRouteForTab();
-            const collection = entry.type === 'festival' ? window.festivals : entry.type === 'source' ? window.sources : window.locations;
-            const item = (collection || []).find(x => x.id === entry.id);
-            const prefix = entry.type === 'festival' ? 'festival' : entry.type;
-            return item ? `#/${prefix}/${item.slug || item.id}` : window.dbRouteForTab();
-        };
-
-        window.getDatabaseEntry = (entry) => {
-            if (!entry) return null;
-            const collection = entry.type === 'festival' ? window.festivals : entry.type === 'source' ? window.sources : window.locations;
-            return (collection || []).find(x => x.id === entry.id) || null;
-        };
-
-        window.updateAddButtonContext = () => {
-            const btn = document.getElementById('btnAdd');
-            if (!btn) return;
-            const label = window.activeDbView === 'sources' ? 'Add new primary source' : window.activeDbView === 'locations' ? 'Add new location' : 'Add new festival';
-            btn.title = label;
-            btn.setAttribute('aria-label', label);
-        };
-
-        window.renderDatabaseGrid = () => {
-            const gc = document.getElementById('gridContainer');
-            if (!gc) return;
-            const active = window.activeDbView;
-            const kind = active === 'sources' ? 'source' : active === 'locations' ? 'location' : 'festival';
-            const items = kind === 'source' ? (window.sources || []) : kind === 'location' ? (window.locations || []) : (window.festivals || []);
-
-            if (!items.length) {
-                const noun = kind === 'source' ? 'Primary Sources' : kind === 'location' ? 'Locations' : 'Festival Records';
-                gc.innerHTML = `<div class="col-span-full mt-4 flex justify-center pointer-events-auto"><div class="text-center p-12 bg-white/95 backdrop-blur-md rounded shadow border border-ancient-200 w-full max-w-4xl"><h3 class="font-heading text-3xl text-ancient-900 mb-4">No ${noun} Found</h3><p class="font-body text-ancient-600">${window.isAdmin ? 'Use the + button above to add the first entry.' : 'This part of the database is currently empty.'}</p></div></div>`;
-                return;
-            }
-
-            const action = (type, id) => `event.stopPropagation(); window.openDatabaseEntry('${type}', '${window.escapeDbHtml(id)}')`;
-            gc.innerHTML = items.map(item => {
-                let typeLabel, badge, title, subtitle, firstMeta, secondMeta, firstIcon, secondIcon;
-                if (kind === 'festival') {
-                    typeLabel = item.type || 'Festival'; badge = item.status ? item.status.split(',')[0] : '';
-                    title = item.name || 'Untitled'; subtitle = item.variants || '';
-                    firstMeta = (item.locations || []).map(l => l.name).join(', ') || 'Unknown';
-                    secondMeta = item.dates || item.attestedSince || 'Date unknown';
-                    firstIcon = 'fa-solid fa-location-dot'; secondIcon = 'fa-regular fa-calendar';
-                } else if (kind === 'source') {
-                    typeLabel = item.type || 'Source'; badge = item.language || '';
-                    title = item.name || 'Untitled'; subtitle = item.edition || item.description || '';
-                    firstMeta = item.provenance || '—'; secondMeta = item.date || 'Date unknown';
-                    firstIcon = 'fa-solid fa-location-dot'; secondIcon = 'fa-regular fa-calendar';
-                } else {
-                    typeLabel = item.type || 'Location'; badge = item.region || '';
-                    title = item.name || 'Untitled'; subtitle = item.variants || '';
-                    firstMeta = item.region || item.modern || '—'; secondMeta = (item.lat && item.lng) ? `${item.lat}, ${item.lng}` : 'No coordinates';
-                    firstIcon = 'fa-solid fa-location-dot'; secondIcon = 'fa-solid fa-compass';
-                }
-                return `
-                    <div onclick="window.openDatabaseEntry('${kind}', '${window.escapeDbHtml(item.id)}')" class="glass-panel group pointer-events-auto cursor-pointer bg-white/95 rounded-sm shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-ancient-100 overflow-hidden relative flex flex-col h-[220px]">
-                        <div class="h-1 bg-ancient-300 w-full shrink-0 group-hover:bg-[#A68F73] transition-colors"></div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex justify-between items-start gap-3 mb-3">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 truncate">${window.escapeDbHtml(typeLabel)}</span>
-                                <div class="flex items-center gap-2 shrink-0">
-                                    ${badge ? `<span class="text-[10px] bg-ancient-100 text-ancient-800 px-2 py-0.5 rounded max-w-[10rem] truncate">${window.escapeDbHtml(badge)}</span>` : ''}
-                                    <button type="button" onclick="${action(kind, item.id)}" class="inline-flex items-center gap-1.5 px-2.5 py-1 border border-ancient-200 bg-white/90 rounded text-[9px] font-bold uppercase tracking-wider text-ancient-600 hover:text-ancient-900 hover:border-ancient-400 transition-colors" title="Open this entry in expanded view" aria-label="Open expanded view for ${window.escapeDbHtml(title)}"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i><span class="hidden xl:inline">Expanded view</span></button>
-                                </div>
-                            </div>
-                            <h3 class="font-heading text-2xl text-ancient-900 mb-1 truncate group-hover:text-ancient-600 transition-colors">${window.escapeDbHtml(title)}</h3>
-                            <p class="text-sm text-ancient-500 ${kind === 'festival' || kind === 'location' ? 'font-greek' : ''} line-clamp-2 mb-auto">${window.escapeDbHtml(subtitle)}</p>
-                            <div class="mt-4 space-y-2 text-[10px] font-bold uppercase tracking-wider text-ancient-600">
-                                <div class="flex items-center gap-2 truncate"><i class="${firstIcon} w-3 text-ancient-400" aria-hidden="true"></i><span class="truncate">${window.escapeDbHtml(firstMeta)}</span></div>
-                                <div class="flex items-center gap-2 truncate"><i class="${secondIcon} w-3 text-ancient-400" aria-hidden="true"></i><span class="truncate">${window.escapeDbHtml(secondMeta)}</span></div>
-                            </div>
-                        </div>
-                    </div>`;
-            }).join('');
-        };
-
-        // Preserve table rendering while making the category grids share the Festivals frame.
-        window.renderAll = () => {
-            window.renderMapMarkers();
-            window.renderDatabaseGrid();
-            if (window.isAdmin) {
-                const body = document.getElementById('tableBody');
-                if (body) body.innerHTML = (window.festivals || []).map(f => `
-                    <tr class="border-b border-ancient-100 hover:bg-ancient-50 transition-colors">
-                        <td class="p-4 text-xs font-mono text-ancient-400">#${window.escapeDbHtml(f.id)}</td>
-                        <td class="p-4"><div class="font-heading text-lg text-ancient-900">${window.escapeDbHtml(f.name)}</div><div class="font-greek text-sm text-ancient-500">${window.escapeDbHtml(f.variants || '')}</div></td>
-                        <td class="p-4 text-sm"><span class="block">${window.escapeDbHtml(f.type || '-')}</span><span class="text-[10px] uppercase text-ancient-500">${window.escapeDbHtml(f.status || '-')}</span></td>
-                        <td class="p-4 text-sm"><span class="block">${window.escapeDbHtml(f.dates || '-')}</span><span class="text-[10px] uppercase text-ancient-500">${window.escapeDbHtml(f.frequency || '-')}</span></td>
-                        <td class="p-4 text-sm"><span class="block">${window.escapeDbHtml((f.locations||[]).map(l=>l.name).join(', ') || '-')}</span><span class="text-[10px] uppercase text-ancient-500">${window.escapeDbHtml(f.buildings || '-')}</span></td>
-                        <td class="p-4 text-sm"><span class="block truncate max-w-[150px]">${window.escapeDbHtml(f.rituals || '-')}</span><span class="text-[10px] uppercase text-ancient-500 truncate max-w-[150px] block">${window.escapeDbHtml(f.contests || '-')}</span></td>
-                        <td class="p-4 text-sm truncate max-w-[200px]">${window.escapeDbHtml(f.description || '-')}</td>
-                        <td class="p-4 text-sm truncate max-w-[150px]">${window.escapeDbHtml(f.biblio || '-')}</td>
-                        <td class="p-4 text-right sticky right-0 bg-white border-l border-ancient-100"><button onclick="window.openEditModal('${window.escapeDbHtml(f.id)}')" class="text-ancient-400 hover:text-ancient-800 px-3 py-1 bg-ancient-50 rounded transition-colors shadow-sm"><i class="fa-solid fa-pen"></i></button></td>
-                    </tr>`).join('');
-            }
-            if (window.databaseUI.displayMode !== 'grid') window.renderDatabaseEntryStage();
-        };
-        window.renderSources = () => { if (window.activeDbView === 'sources') window.renderDatabaseGrid(); if (window.databaseUI.displayMode !== 'grid') window.renderDatabaseEntryStage(); };
-        window.renderLocations = () => { if (window.activeDbView === 'locations') window.renderDatabaseGrid(); if (window.databaseUI.displayMode !== 'grid') window.renderDatabaseEntryStage(); };
-
-        window.switchDbView = (view) => {
-            if (view === 'table' && !window.isAdmin) return;
-            window.activeDbView = view;
-            ['Map', 'Grid', 'Locations', 'Sources', 'Table'].forEach(v => {
-                const btn = document.getElementById('btnView' + v);
-                if (!btn) return;
-                btn.classList.remove('bg-ancient-100', 'shadow-sm', 'text-ancient-800');
-                btn.classList.add('hover:bg-ancient-50', 'text-ancient-600');
-            });
-            const activeBtn = document.getElementById('btnView' + (view.charAt(0).toUpperCase() + view.slice(1)));
-            if (activeBtn) {
-                activeBtn.classList.remove('hover:bg-ancient-50', 'text-ancient-600');
-                activeBtn.classList.add('bg-ancient-100', 'shadow-sm', 'text-ancient-800');
-            }
-
-            ['viewGrid', 'viewTable', 'viewLocations', 'viewSources'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
-            const mapToggle = document.getElementById('mapToggleContainer');
-            document.getElementById('mapContainer').style.display = 'block';
-
-            if (view === 'map') {
-                mapToggle?.classList.add('hidden');
-                if (window.map) window.map.invalidateSize();
-            } else if (view === 'table') {
-                document.getElementById('viewTable').classList.remove('hidden');
-                mapToggle?.classList.add('hidden');
-            } else {
-                const grid = document.getElementById('viewGrid');
-                grid.classList.remove('hidden');
-                mapToggle?.classList.remove('hidden');
-                if (window.isMapVisible) {
-                    grid.classList.add('bg-transparent', 'pointer-events-none');
-                    grid.classList.remove('bg-ancient-50', 'pointer-events-auto');
-                } else {
-                    grid.classList.remove('bg-transparent', 'pointer-events-none');
-                    grid.classList.add('bg-ancient-50', 'pointer-events-auto');
-                }
-                window.renderDatabaseGrid();
-            }
-            window.updateAddButtonContext();
-            window.syncMapToggleUI();
-            if (window.databaseUI.displayMode !== 'grid') window.renderDatabaseEntryStage();
-        };
-
-        window.getEntryBadges = (type, item) => {
-            const vals = type === 'festival' ? [item.type || 'Festival', item.subtype, item.status] : type === 'source' ? [item.type || 'Source', item.language, item.material] : [item.type || 'Location', item.region];
-            return vals.filter(Boolean).map((v, i) => `<span class="px-3 py-1 rounded-sm text-[9px] font-bold uppercase tracking-widest ${i === 0 ? 'border border-ancient-300 text-ancient-600 bg-white' : 'bg-ancient-100 text-ancient-700'}">${window.escapeDbHtml(v)}</span>`).join('');
-        };
-
-        window.dbRow = (label, value, html = false) => {
-            if (value === undefined || value === null || String(value).trim() === '') return '';
-            return `<div class="flex flex-col sm:flex-row gap-1 sm:gap-4 py-2 border-b border-ancient-100"><span class="text-[10px] font-bold uppercase tracking-widest text-ancient-500 sm:w-36 shrink-0 pt-0.5">${window.escapeDbHtml(label)}</span><span class="text-ancient-800 text-sm min-w-0 break-words">${html ? value : window.escapeDbHtml(value)}</span></div>`;
-        };
-
-        window.renderFestivalEntryBody = (f, panel) => {
-            const locHtml = (f.locations || []).map(l => {
-                const match = (window.locations || []).find(x => x.name && l.name && x.name.trim().toLowerCase() === l.name.trim().toLowerCase());
-                const label = `${window.escapeDbHtml(l.name || 'Unknown')}${l.lat ? ` <span class="text-[9px] text-ancient-400">(${window.escapeDbHtml(l.lat)}, ${window.escapeDbHtml(l.lng)})</span>` : ''}`;
-                return match ? `<button onclick="window.openEntryLink('location','${window.escapeDbHtml(match.id)}','${panel}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ancient-50 border border-ancient-200 rounded text-xs hover:bg-white hover:border-ancient-400 transition-colors"><i class="fa-solid fa-location-dot text-ancient-400"></i>${label}</button>` : `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ancient-50 border border-ancient-200 rounded text-xs"><i class="fa-solid fa-location-dot text-ancient-400"></i>${label}</span>`;
-            }).join('');
-            const linkedSources = (f.sources || []).map(id => (window.sources || []).find(s => s.id === id)).filter(Boolean);
-            const sourceHtml = linkedSources.map(s => `<button onclick="window.openEntryLink('source','${window.escapeDbHtml(s.id)}','${panel}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ancient-50 border border-ancient-200 rounded text-xs text-ancient-800 hover:bg-white hover:border-ancient-400 hover:text-[#D9534F] transition-colors shadow-sm"><i class="fa-solid fa-file-lines text-[10px] text-ancient-400"></i>${window.escapeDbHtml(s.name || 'Untitled source')}</button>`).join('');
-            const tags = (f.tags || []).map(t => `<span class="text-[9px] font-bold uppercase tracking-widest text-ancient-500 border border-ancient-200 px-2 py-1 rounded bg-white">#${window.escapeDbHtml(t)}</span>`).join('');
-            const attested = [f.attestedSince ? `Since: ${f.attestedSince}` : '', f.attestedUntil ? `Until: ${f.attestedUntil}` : '', f.duration ? `(${f.duration} days)` : ''].filter(Boolean).join(' ');
-            const tm = f.trismegistos ? `<a href="https://www.trismegistos.org/place/${encodeURIComponent(f.trismegistos)}" target="_blank" class="text-ancient-600 hover:text-[#D9534F] underline">${window.escapeDbHtml(f.trismegistos)} <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i></a>` : '';
-            return `
-                <div class="text-center space-y-3 border-b border-ancient-100 pb-7">
-                    <h2 class="font-heading text-4xl md:text-5xl text-ancient-900">${window.escapeDbHtml(f.name || 'Untitled')}</h2>
-                    ${f.variants ? `<p class="font-greek text-xl text-ancient-500">${window.escapeDbHtml(f.variants)}</p>` : ''}
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <section><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Chronology</h4>${window.dbRow('Attested', attested)}${window.dbRow('Date(s)', f.dates)}${window.dbRow('Frequency', f.frequency)}</section>
-                    <section><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Geography</h4>${locHtml ? `<div class="flex flex-wrap gap-2 mb-3">${locHtml}</div>` : ''}${window.dbRow('TM Geo', tm, true)}${window.dbRow('Buildings', f.buildings)}</section>
-                </div>
-                ${(f.deities?.length || f.rituals || f.contests) ? `<section class="border-t border-ancient-100 pt-6"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Cultic Context</h4>${f.deities?.length ? `<div class="flex flex-wrap gap-2 mb-3">${f.deities.map(d => `<span class="px-2.5 py-1 bg-ancient-50 border border-ancient-200 rounded text-xs">${window.escapeDbHtml(d)}</span>`).join('')}</div>` : ''}${window.dbRow('Rituals', f.rituals)}${window.dbRow('Contests', f.contests)}</section>` : ''}
-                <section class="bg-ancient-50 p-7 rounded border border-ancient-100"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-4">Description</h4><div class="font-subheading text-xl text-ancient-800 leading-relaxed space-y-4">${window.renderRichText(f.description || 'No description provided.')}</div></section>
-                ${sourceHtml ? `<section class="border-t border-ancient-100 pt-6"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Primary Sources</h4><div class="flex flex-wrap gap-2">${sourceHtml}</div></section>` : ''}
-                ${(f.persons || f.biblio) ? `<div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-ancient-100 pt-6">${f.persons ? `<section><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-2">Prosopography</h4><p class="text-sm text-ancient-700 leading-relaxed">${window.escapeDbHtml(f.persons)}</p></section>` : ''}${f.biblio ? `<section><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-2">Bibliography</h4><p class="text-sm text-ancient-700 leading-relaxed">${window.escapeDbHtml(f.biblio)}</p></section>` : ''}</div>` : ''}
-                ${tags ? `<div class="flex flex-wrap gap-2 border-t border-ancient-100 pt-6">${tags}</div>` : ''}`;
-        };
-
-        window.renderSourceEntryBody = (s, panel) => {
-            const citedBy = (window.festivals || []).filter(f => (f.sources || []).includes(s.id));
-            const citedHtml = citedBy.map(f => `<button onclick="window.openEntryLink('festival','${window.escapeDbHtml(f.id)}','${panel}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ancient-50 border border-ancient-200 rounded text-xs hover:bg-white hover:border-ancient-400 hover:text-[#D9534F] transition-colors"><i class="fa-solid fa-star text-ancient-400"></i>${window.escapeDbHtml(f.name)}</button>`).join('');
-            const tm = s.trismegistos ? `<a href="https://www.trismegistos.org/text/${encodeURIComponent(s.trismegistos)}" target="_blank" class="text-ancient-600 hover:text-[#D9534F] underline">TM ${window.escapeDbHtml(s.trismegistos)} <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i></a>` : '';
-            const ext = s.url ? `<a href="${window.escapeDbHtml(s.url)}" target="_blank" class="text-ancient-600 hover:text-[#D9534F] underline break-all">Digital edition <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i></a>` : '';
-            return `
-                <div class="text-center space-y-3 border-b border-ancient-100 pb-7"><h2 class="font-heading text-4xl md:text-5xl text-ancient-900">${window.escapeDbHtml(s.name || 'Untitled')}</h2>${s.edition ? `<p class="font-subheading italic text-xl text-ancient-500">${window.escapeDbHtml(s.edition)}</p>` : ''}</div>
-                <section>${window.dbRow('Type', s.type)}${window.dbRow('Language', s.language)}${window.dbRow('Material', s.material)}${window.dbRow('Date', s.date)}${window.dbRow('Provenance', s.provenance)}${window.dbRow('References', [tm, ext].filter(Boolean).join('&nbsp;&nbsp;·&nbsp;&nbsp;'), true)}</section>
-                ${s.description ? `<section class="bg-ancient-50 p-7 rounded border border-ancient-100"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-4">Description</h4><div class="font-subheading text-xl text-ancient-800 leading-relaxed space-y-4">${window.renderRichText(s.description)}</div></section>` : ''}
-                ${s.translation ? `<section><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Translation / Notes</h4><p class="text-ancient-700 leading-relaxed whitespace-pre-line">${window.escapeDbHtml(s.translation)}</p></section>` : ''}
-                ${citedHtml ? `<section class="border-t border-ancient-100 pt-6"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Associated Festivals</h4><div class="flex flex-wrap gap-2">${citedHtml}</div></section>` : ''}`;
-        };
-
-        window.renderLocationEntryBody = (l, panel) => {
-            const here = (window.festivals || []).filter(f => (f.locations || []).some(x => x.name && l.name && x.name.trim().toLowerCase() === l.name.trim().toLowerCase()));
-            const festHtml = here.map(f => `<button onclick="window.openEntryLink('festival','${window.escapeDbHtml(f.id)}','${panel}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ancient-50 border border-ancient-200 rounded text-xs hover:bg-white hover:border-ancient-400 hover:text-[#D9534F] transition-colors"><i class="fa-solid fa-star text-ancient-400"></i>${window.escapeDbHtml(f.name)}</button>`).join('');
-            const tm = l.trismegistos ? `<a href="https://www.trismegistos.org/place/${encodeURIComponent(l.trismegistos)}" target="_blank" class="text-ancient-600 hover:text-[#D9534F] underline">TM ${window.escapeDbHtml(l.trismegistos)} <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i></a>` : '';
-            const pl = l.pleiades ? `<a href="https://pleiades.stoa.org/places/${encodeURIComponent(l.pleiades)}" target="_blank" class="text-ancient-600 hover:text-[#D9534F] underline">Pleiades ${window.escapeDbHtml(l.pleiades)} <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i></a>` : '';
-            return `
-                <div class="text-center space-y-3 border-b border-ancient-100 pb-7"><h2 class="font-heading text-4xl md:text-5xl text-ancient-900">${window.escapeDbHtml(l.name || 'Untitled')}</h2>${l.variants ? `<p class="font-greek text-xl text-ancient-500">${window.escapeDbHtml(l.variants)}</p>` : ''}</div>
-                <section>${window.dbRow('Type', l.type)}${window.dbRow('Nome / Region', l.region)}${window.dbRow('Modern Name', l.modern)}${window.dbRow('Coordinates', (l.lat && l.lng) ? `${l.lat}, ${l.lng}` : '')}${window.dbRow('Gazetteers', [tm, pl].filter(Boolean).join('&nbsp;&nbsp;·&nbsp;&nbsp;'), true)}</section>
-                ${l.description ? `<section class="bg-ancient-50 p-7 rounded border border-ancient-100"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-4">Description</h4><div class="font-subheading text-xl text-ancient-800 leading-relaxed space-y-4">${window.renderRichText(l.description)}</div></section>` : ''}
-                ${festHtml ? `<section class="border-t border-ancient-100 pt-6"><h4 class="text-[10px] font-bold uppercase tracking-widest text-ancient-400 mb-3">Festivals Attested Here</h4><div class="flex flex-wrap gap-2">${festHtml}</div></section>` : ''}`;
-        };
-
-        window.renderEntryPanel = (entry, panel, split) => {
-            if (!entry) return `<article class="db-entry-card db-entry-placeholder ${split ? 'split-card' : 'single-card'} pointer-events-auto h-full flex items-center justify-center p-10"><div class="text-center max-w-sm"><i class="fa-solid fa-table-columns text-2xl text-ancient-300 mb-5"></i><p class="font-heading text-2xl text-ancient-600">Select another festival, source, or location to compare.</p></div></article>`;
-            const item = window.getDatabaseEntry(entry);
-            if (!item) return '';
-            const body = entry.type === 'festival' ? window.renderFestivalEntryBody(item, panel) : entry.type === 'source' ? window.renderSourceEntryBody(item, panel) : window.renderLocationEntryBody(item, panel);
-            const modeLabel = split ? 'Expanded view' : 'Split view';
-            const modeTitle = split ? 'Open this entry in expanded view' : 'Compare this entry in split view';
-            const modeAction = split ? `window.expandDatabasePanel('${panel}')` : `window.enterDatabaseSplit()`;
-            const icon = split ? 'fa-up-right-and-down-left-from-center' : 'fa-table-columns';
-            const editAction = entry.type === 'festival' ? `window.openEditModal('${window.escapeDbHtml(entry.id)}')` : entry.type === 'source' ? `window.openSourceEditModal('${window.escapeDbHtml(entry.id)}')` : `window.openLocationEditModal('${window.escapeDbHtml(entry.id)}')`;
-            return `<article class="db-entry-card ${split ? 'split-card' : 'single-card'} pointer-events-auto h-full flex flex-col overflow-hidden" data-panel="${panel}">
-                <header class="px-6 md:px-8 py-5 border-b border-ancient-200 flex justify-between items-center gap-4 bg-[#F9F7F2] shrink-0">
-                    <div class="flex flex-wrap items-center gap-2 min-w-0">${window.getEntryBadges(entry.type, item)}</div>
-                    <div class="flex items-center gap-4 text-ancient-500 shrink-0">
-                        <button onclick="${modeAction}" class="hover:text-ancient-900 transition-colors flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest" title="${modeTitle}" aria-label="${modeTitle}"><i class="fa-solid ${icon} text-base" aria-hidden="true"></i><span class="hidden sm:inline">${modeLabel}</span></button>
-                        ${window.isAdmin ? `<button onclick="${editAction}" class="hover:text-ancient-900 transition-colors flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest" title="Edit entry"><i class="fa-solid fa-pen" aria-hidden="true"></i><span class="hidden lg:inline">Edit</span></button>` : ''}
-                        <div class="w-px h-6 bg-ancient-300"></div>
-                        <button onclick="window.closeDatabasePanel('${panel}')" class="hover:text-[#D9534F] transition-colors flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest" aria-label="Close entry"><span class="hidden sm:inline">Close</span><i class="fa-solid fa-times text-xl" aria-hidden="true"></i></button>
-                    </div>
-                </header>
-                <div class="db-entry-scroll flex-1 overflow-y-auto p-7 md:p-10"><div class="max-w-4xl mx-auto space-y-8">${body}${window.endOrnament()}</div></div>
-            </article>`;
-        };
-
-        window.renderDatabaseEntryStage = () => {
-            const stage = document.getElementById('dbEntryStage');
-            const panels = document.getElementById('dbEntryPanels');
-            if (!stage || !panels) return;
-            const mode = window.databaseUI.displayMode;
-            if (mode === 'grid') { stage.classList.add('hidden'); panels.innerHTML = ''; return; }
-            stage.classList.remove('hidden');
-            const split = mode === 'split';
-            panels.classList.toggle('split-layout', split);
-            panels.classList.toggle('justify-center', !split);
-            panels.innerHTML = window.renderEntryPanel(window.databaseUI.primary, 'primary', split) + (split ? window.renderEntryPanel(window.databaseUI.secondary, 'secondary', true) : '');
-        };
-
-        window.openDatabaseEntry = (type, id, originPanel = null) => {
-            const entry = { type, id };
-            if (!window.getDatabaseEntry(entry)) return;
-            if (type === 'festival') window.currentRecordId = id;
-            if (type === 'source') window.currentSourceId = id;
-            if (type === 'location') window.currentLocationId = id;
-            if (window.databaseUI.displayMode === 'split') {
-                const target = originPanel === 'secondary' ? 'primary' : 'secondary';
-                window.databaseUI[target] = entry;
-                window.databaseUI.lastOriginPanel = target;
-            } else {
-                window.databaseUI.primary = entry;
-                window.databaseUI.secondary = null;
-                window.databaseUI.displayMode = 'expanded';
-                window.databaseUI.lastOriginPanel = 'primary';
-            }
-            history.replaceState(null, '', window.dbEntryRoute(window.databaseUI.primary));
-            window.renderDatabaseEntryStage();
-        };
-
-        window.openEntryLink = (type, id, originPanel) => window.openDatabaseEntry(type, id, originPanel);
-        window.enterDatabaseSplit = () => {
-            if (!window.databaseUI.primary) return;
-            window.databaseUI.displayMode = 'split';
-            window.databaseUI.secondary = window.databaseUI.secondary || null;
-            window.renderDatabaseEntryStage();
-        };
-        window.expandDatabasePanel = (panel) => {
-            const selected = window.databaseUI[panel];
-            if (!selected) return;
-            window.databaseUI.primary = selected;
-            window.databaseUI.secondary = null;
-            window.databaseUI.displayMode = 'expanded';
-            history.replaceState(null, '', window.dbEntryRoute(selected));
-            window.renderDatabaseEntryStage();
-        };
-        window.closeDatabasePanel = (panel) => {
-            if (window.databaseUI.displayMode === 'split') {
-                const other = panel === 'primary' ? window.databaseUI.secondary : window.databaseUI.primary;
-                if (other) {
-                    window.databaseUI.primary = other;
-                    window.databaseUI.secondary = null;
-                    window.databaseUI.displayMode = 'expanded';
-                    history.replaceState(null, '', window.dbEntryRoute(other));
-                } else {
-                    window.databaseUI.primary = null;
-                    window.databaseUI.secondary = null;
-                    window.databaseUI.displayMode = 'grid';
-                    history.replaceState(null, '', window.dbRouteForTab());
-                }
-            } else {
-                window.databaseUI.primary = null;
-                window.databaseUI.secondary = null;
-                window.databaseUI.displayMode = 'grid';
-                history.replaceState(null, '', window.dbRouteForTab());
-            }
-            window.renderDatabaseEntryStage();
-        };
-        window.closeAllDatabaseEntries = () => {
-            window.databaseUI.primary = null;
-            window.databaseUI.secondary = null;
-            window.databaseUI.displayMode = 'grid';
-            window.renderDatabaseEntryStage();
-        };
-
-        // Compatibility aliases used by deep links, search results, and existing relationship buttons.
-        window.openDetailModal = (id) => {
-            if (window.databaseUI.displayMode === 'grid' && window.activeDbView === 'map') window.switchDbView('grid');
-            window.openDatabaseEntry('festival', id);
-        };
-        window.openSourceDetail = (id) => {
-            if (window.databaseUI.displayMode === 'grid' && window.activeDbView === 'map') window.switchDbView('sources');
-            window.openDatabaseEntry('source', id);
-        };
-        window.openLocationDetail = (id) => {
-            if (window.databaseUI.displayMode === 'grid' && window.activeDbView === 'map') window.switchDbView('locations');
-            window.openDatabaseEntry('location', id);
-        };
-        window.openLinkedSource = (id) => window.openEntryLink('source', id, 'primary');
-        window.closeDetailModal = () => window.closeDatabasePanel('primary');
-        window.closeSourceDetail = () => window.closeDatabasePanel(window.databaseUI.secondary?.type === 'source' ? 'secondary' : 'primary');
-        window.executeCloseDetailModal = window.closeAllDatabaseEntries;
-        window.executeCloseSourceDetail = () => {
-            if (window.databaseUI.secondary?.type === 'source') window.closeDatabasePanel('secondary');
-            else if (window.databaseUI.primary?.type === 'source') window.closeDatabasePanel('primary');
-        };
-        window.executeCloseLocationDetail = () => {
-            if (window.databaseUI.secondary?.type === 'location') window.closeDatabasePanel('secondary');
-            else if (window.databaseUI.primary?.type === 'location') window.closeDatabasePanel('primary');
-        };
-        window.resizeModal = (mode) => { if (mode === 'split') window.enterDatabaseSplit(); else window.expandDatabasePanel('primary'); };
-        window.resizeSourceModal = (mode) => { if (mode === 'split') window.enterDatabaseSplit(); else window.expandDatabasePanel(window.databaseUI.secondary?.type === 'source' ? 'secondary' : 'primary'); };
-        window.toggleSplitMode = () => { if (window.databaseUI.displayMode === 'split') window.expandDatabasePanel('primary'); else window.enterDatabaseSplit(); };
-        window.syncSplitUI = () => {};
-
-        // Keep the map action wording and state shared across all three content tabs.
-        const revisedToggleMapVisibility = window.toggleMapVisibility;
-        window.toggleMapVisibility = () => {
-            window.isMapVisible = !window.isMapVisible;
-            const mapEl = document.getElementById('map');
-            if (mapEl) mapEl.style.opacity = window.isMapVisible ? '1' : '0';
-            const grid = document.getElementById('viewGrid');
-            if (grid) {
-                if (window.isMapVisible) { grid.classList.add('bg-transparent', 'pointer-events-none'); grid.classList.remove('bg-ancient-50', 'pointer-events-auto'); }
-                else { grid.classList.remove('bg-transparent', 'pointer-events-none'); grid.classList.add('bg-ancient-50', 'pointer-events-auto'); }
-            }
-            window.syncMapToggleUI();
-            window.renderMapMarkers();
-        };
-
-        // Session-scoped construction notice.
-        window.databaseDisclaimerAcknowledged = false;
-        window.showDatabaseDisclaimer = () => {
-            let acknowledged = window.databaseDisclaimerAcknowledged;
-            try { acknowledged = acknowledged || sessionStorage.getItem('festivalsDatabaseDisclaimerAcknowledged') === '1'; } catch (e) {}
-            const notice = document.getElementById('databaseDisclaimer');
-            const dbView = document.getElementById('database-view');
-            if (!notice || acknowledged) return;
-            notice.classList.remove('hidden');
-            notice.classList.add('flex');
-            dbView.classList.add('database-disclaimer-open');
-        };
-        window.acknowledgeDatabaseDisclaimer = () => {
-            window.databaseDisclaimerAcknowledged = true;
-            try { sessionStorage.setItem('festivalsDatabaseDisclaimerAcknowledged', '1'); } catch (e) {}
-            const notice = document.getElementById('databaseDisclaimer');
-            notice?.classList.add('hidden'); notice?.classList.remove('flex');
-            document.getElementById('database-view')?.classList.remove('database-disclaimer-open');
-        };
-        const baseSwitchMode = window.switchMode;
-        window.switchMode = (mode) => {
-            baseSwitchMode(mode);
-            if (mode === 'database') window.showDatabaseDisclaimer();
-        };
-
-        // Blog and Featured Object navigation drawers: hover/focus on desktop, tap on touch.
-        window.readerSidebarTimers = {};
-        window.openReaderSidebar = (kind) => {
-            window.cancelReaderSidebarCollapse(kind);
-            const sidebar = document.getElementById(kind + 'Sidebar');
-            const toggle = document.getElementById(kind + 'SidebarToggle');
-            sidebar?.classList.add('is-open');
-            toggle?.setAttribute('aria-expanded', 'true');
-        };
-        window.closeReaderSidebar = (kind) => {
-            const sidebar = document.getElementById(kind + 'Sidebar');
-            const toggle = document.getElementById(kind + 'SidebarToggle');
-            sidebar?.classList.remove('is-open');
-            toggle?.setAttribute('aria-expanded', 'false');
-        };
-        window.toggleReaderSidebar = (kind) => {
-            const sidebar = document.getElementById(kind + 'Sidebar');
-            if (sidebar?.classList.contains('is-open')) window.closeReaderSidebar(kind); else window.openReaderSidebar(kind);
-        };
-        window.cancelReaderSidebarCollapse = (kind) => {
-            if (window.readerSidebarTimers[kind]) clearTimeout(window.readerSidebarTimers[kind]);
-        };
-        window.scheduleReaderSidebarCollapse = (kind) => {
-            window.cancelReaderSidebarCollapse(kind);
-            window.readerSidebarTimers[kind] = setTimeout(() => window.closeReaderSidebar(kind), 260);
-        };
-        window.handleReaderSidebarFocusOut = (kind, event) => {
-            const sidebar = document.getElementById(kind + 'Sidebar');
-            if (!sidebar || sidebar.contains(event.relatedTarget)) return;
-            window.scheduleReaderSidebarCollapse(kind);
-        };
-
-        const baseOpenArticleModal = window.openArticleModal;
-        window.openArticleModal = (id) => { window.closeReaderSidebar('blog'); baseOpenArticleModal(id); };
-        const baseOpenFeaturedModal = window.openFeaturedModal;
-        window.openFeaturedModal = (id) => { window.closeReaderSidebar('featured'); baseOpenFeaturedModal(id); };
-
-        // Close the shared entry stage only when browser navigation leaves database-entry routes.
-        window.addEventListener('hashchange', () => {
-            const route = (window.location.hash || '').replace('#/', '').split('/')[0];
-            if (!['database', 'sources', 'locations', 'festival', 'source', 'location'].includes(route)) window.closeAllDatabaseEntries();
-        });
-
-    </script>
+    <script type="module" src="./assets/js/app.js"></script>
 </body>
 </html>
